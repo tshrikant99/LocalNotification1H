@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2032768A11D00BEF268 /* AppDelegate.swift */; };
 		C93AE2062768A11D00BEF268 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2052768A11D00BEF268 /* SceneDelegate.swift */; };
-		C93AE2082768A11D00BEF268 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2072768A11D00BEF268 /* ViewController.swift */; };
+		C93AE2082768A11D00BEF268 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2072768A11D00BEF268 /* NotificationVC.swift */; };
 		C93AE20B2768A11D00BEF268 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93AE2092768A11D00BEF268 /* Main.storyboard */; };
 		C93AE20D2768A11F00BEF268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93AE20C2768A11F00BEF268 /* Assets.xcassets */; };
 		C93AE2102768A11F00BEF268 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93AE20E2768A11F00BEF268 /* LaunchScreen.storyboard */; };
@@ -19,7 +19,7 @@
 		C93AE2002768A11D00BEF268 /* LocalNotification1H.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalNotification1H.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93AE2032768A11D00BEF268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C93AE2052768A11D00BEF268 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		C93AE2072768A11D00BEF268 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		C93AE2072768A11D00BEF268 /* NotificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationVC.swift; sourceTree = "<group>"; };
 		C93AE20A2768A11D00BEF268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C93AE20C2768A11F00BEF268 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C93AE20F2768A11F00BEF268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -56,15 +56,39 @@
 		C93AE2022768A11D00BEF268 /* LocalNotification1H */ = {
 			isa = PBXGroup;
 			children = (
-				C93AE2032768A11D00BEF268 /* AppDelegate.swift */,
-				C93AE2052768A11D00BEF268 /* SceneDelegate.swift */,
-				C93AE2072768A11D00BEF268 /* ViewController.swift */,
-				C93AE2092768A11D00BEF268 /* Main.storyboard */,
+				C98FB0C62768D38A00CDDC01 /* View */,
+				C98FB0C52768D38500CDDC01 /* Controllers */,
+				C98FB0C42768D37F00CDDC01 /* Main */,
 				C93AE20C2768A11F00BEF268 /* Assets.xcassets */,
 				C93AE20E2768A11F00BEF268 /* LaunchScreen.storyboard */,
 				C93AE2112768A11F00BEF268 /* Info.plist */,
 			);
 			path = LocalNotification1H;
+			sourceTree = "<group>";
+		};
+		C98FB0C42768D37F00CDDC01 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				C93AE2032768A11D00BEF268 /* AppDelegate.swift */,
+				C93AE2052768A11D00BEF268 /* SceneDelegate.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		C98FB0C52768D38500CDDC01 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				C93AE2072768A11D00BEF268 /* NotificationVC.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		C98FB0C62768D38A00CDDC01 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C93AE2092768A11D00BEF268 /* Main.storyboard */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,7 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C93AE2082768A11D00BEF268 /* ViewController.swift in Sources */,
+				C93AE2082768A11D00BEF268 /* NotificationVC.swift in Sources */,
 				C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */,
 				C93AE2062768A11D00BEF268 /* SceneDelegate.swift in Sources */,
 			);
