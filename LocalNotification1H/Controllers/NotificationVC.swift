@@ -42,7 +42,7 @@ class NotificationVC: UIViewController {
         sendNotificationRequest(content: content, notifyAfter: notifyAfter)
         
         let playNowAction = getNotificationAction(title: "Play now!", actionIdentifier: .playNow, actionType: .foreground)
-        let remindAction = getNotificationAction(title: "Remind me later", actionIdentifier: .remindMe, actionType: .destructive)
+        let remindAction = getNotificationAction(title: "Remind me later", actionIdentifier: .remindMe, actionType: .foreground)
         let playLaterAction = getNotificationAction(title: "I'll Play later", actionIdentifier: .playLater, actionType: .destructive)
         addNotificationActions(customActions: playNowAction, remindAction, playLaterAction)
     }
