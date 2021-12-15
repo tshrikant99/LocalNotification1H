@@ -23,7 +23,7 @@ class NotificationVC: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        notifyButton.titleLabel?.text = "Notify after 8 sec"
+        notifyButton.titleLabel?.text = "Notify after \(Int(notifyAfter)) sec"
         
         notificationCenter.delegate = self
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
