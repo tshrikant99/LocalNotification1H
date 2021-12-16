@@ -13,6 +13,7 @@
 		C93AE20B2768A11D00BEF268 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93AE2092768A11D00BEF268 /* Main.storyboard */; };
 		C93AE20D2768A11F00BEF268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93AE20C2768A11F00BEF268 /* Assets.xcassets */; };
 		C93AE2102768A11F00BEF268 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93AE20E2768A11F00BEF268 /* LaunchScreen.storyboard */; };
+		C968DFD4276B32B800DF86EE /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968DFD3276B32B800DF86EE /* NotificationHandler.swift */; };
 		C9852BA02769D84C005BCC00 /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9852B9F2769D84B005BCC00 /* SecondVC.swift */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +26,7 @@
 		C93AE20C2768A11F00BEF268 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C93AE20F2768A11F00BEF268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C93AE2112768A11F00BEF268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C968DFD3276B32B800DF86EE /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		C9852B9F2769D84B005BCC00 /* SecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,6 +84,7 @@
 			children = (
 				C93AE2072768A11D00BEF268 /* NotificationVC.swift */,
 				C9852B9F2769D84B005BCC00 /* SecondVC.swift */,
+				C968DFD3276B32B800DF86EE /* NotificationHandler.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -167,6 +170,7 @@
 			files = (
 				C93AE2082768A11D00BEF268 /* NotificationVC.swift in Sources */,
 				C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */,
+				C968DFD4276B32B800DF86EE /* NotificationHandler.swift in Sources */,
 				C9852BA02769D84C005BCC00 /* SecondVC.swift in Sources */,
 				C93AE2062768A11D00BEF268 /* SceneDelegate.swift in Sources */,
 			);

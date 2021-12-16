@@ -58,8 +58,8 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 navigationController?.pushViewController(vc, animated: true)
             }
         case actionIdentiifier.remindMe.rawValue:
-            let notifyVC = NotificationVC()
-            notifyVC.send1huddleNotification()
+            let notificationHandler = NotificationHandler()
+            notificationHandler.send1huddleNotification()
             print("remindMe pressed")
         case actionIdentiifier.playLater.rawValue:
             print("Later pressed")
