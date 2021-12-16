@@ -10,10 +10,13 @@ import UIKit
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
-
+    let notificationCenter = UNUserNotificationCenter.current()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        notificationCenter.delegate = self
+        
         return true
     }
 
@@ -25,12 +28,44 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return UISceneConfiguration(name: "Default Configuration", sessionRole: connectingSceneSession.role)
     }
 
-    func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {
-        // Called when the user discards a scene session.
-        // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
-        // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
-    }
-
-
 }
 
+extension AppDelegate: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .badge, .sound])
+    }
+    
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        print("Response: \(response)")
+        
+        switch response.actionIdentifier {
+        case actionIdentiifier.playNow.rawValue:
+            print("playNow pressed")
+            
+            let keyWindow = UIApplication.shared.windows.filter { $0.isKeyWindow }.first
+
+            if var rootViewController = keyWindow?.rootViewController {
+
+                while let presentedViewController = rootViewController.presentedViewController {
+                    rootViewController = presentedViewController
+                }
+
+                let navigationController = rootViewController as? UINavigationController
+
+                let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "SecondVC") as! SecondVC
+                vc.customTitle = "Play now pressed!"
+                vc.view.backgroundColor = .green
+                navigationController?.pushViewController(vc, animated: true)
+            }
+        case actionIdentiifier.remindMe.rawValue:
+            let notifyVC = NotificationVC()
+            notifyVC.send1huddleNotification()
+            print("remindMe pressed")
+        case actionIdentiifier.playLater.rawValue:
+            print("Later pressed")
+        default:
+            print("other pressed")
+        }
+        
+    }
+}

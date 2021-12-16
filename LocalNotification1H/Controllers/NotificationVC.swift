@@ -17,7 +17,7 @@ class NotificationVC: UIViewController {
     let notificationMessage = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
     let categoryIdentifier = "My category"
     
-    let notificationCenter = UNUserNotificationCenter.current()
+    let appDelegateInstance = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,8 +25,7 @@ class NotificationVC: UIViewController {
         
         notifyButton.titleLabel?.text = "Notify after \(Int(notifyAfter)) sec"
         
-        notificationCenter.delegate = self
-        notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+        appDelegateInstance.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if let error = error {
                 print("Error in request authorize \(error.localizedDescription)")
             }
@@ -61,13 +60,14 @@ class NotificationVC: UIViewController {
     
     // Notification request
     func sendNotificationRequest(content: UNMutableNotificationContent, notifyAfter: TimeInterval) {
+        var dateComponent = DateComponents()
+        dateComponent.second = Calendar.current.component(.second, from: Date.now.addingTimeInterval(10))
         
-        // Add trigger
-        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: notifyAfter, repeats: false)
+        let trigger = UNCalendarNotificationTrigger.init(dateMatching: dateComponent, repeats: false)
         
         let req = UNNotificationRequest.init(identifier: "Notify", content: content, trigger: trigger)
         
-        notificationCenter.add(req) { error in
+        appDelegateInstance.notificationCenter.add(req) { error in
             if let error = error {
                 print("Error in request notification \(error.localizedDescription)")
             }
@@ -86,7 +86,7 @@ class NotificationVC: UIViewController {
         
         let category = UNNotificationCategory.init(identifier: categoryIdentifier, actions: customActions, intentIdentifiers: [], options: [])
         
-        notificationCenter.setNotificationCategories([category])
+        appDelegateInstance.notificationCenter.setNotificationCategories([category])
     }
 }
 
