@@ -12,24 +12,30 @@ class NotificationVC: UIViewController {
     
     @IBOutlet weak var notifyButton: UIButton!
     
-    let notificationHandler = NotificationHandler()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        notifyButton.titleLabel?.text = "Notify after \(Int(notificationHandler.notifyAfter)) sec"
-        
-        notificationHandler.requestAuthorization()
+        notifyButton.titleLabel?.text = "Notify after 8 sec"
     }
     
     @IBAction func onNotifyPressed(_ sender: UIButton) {
-        notificationHandler.send1huddleNotification()
+        NotificationHandler.send1huddleNotification()
     }
     
+    @IBAction func showQuestionPage(_ sender: Any) {
+        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QuestionVC") as! QuestionVC
+        vc.question = Question(title: "How many core values & standards make up the 1?",
+                               answers: [.init(value: "16", isCorrect: true),
+                                         .init(value: "17", isCorrect: false),
+                                         .init(value: "10", isCorrect: false),
+                                         .init(value: "12", isCorrect: false)],
+                               imageURL: "https://robohash.org/lorem.png?set=set2&size=600x600")
+        navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
-enum actionIdentiifier: String {
+enum ActionIdentifier: String {
     case playNow = "play now"
     case remindMe = "remind me"
     case playLater = "play later"

@@ -10,49 +10,27 @@ import UserNotifications
 
 struct NotificationHandler {
     
-    let notifyAfter: TimeInterval = 8
-    let notificationTitle = "1 Huddle"
-    let notificationMessage = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
-    let categoryIdentifier = "My category"
-    
-    let appDelegateInstance = UIApplication.shared.delegate as! AppDelegate
-    
-    init() {
-        
-    }
-    
-    func requestAuthorization() {
-        appDelegateInstance.notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-            if let error = error {
-                print("Error in request authorize \(error.localizedDescription)")
-            }
-        }
-    }
-    
-    func send1huddleNotification() {
-        let content = createNotificationContent(title: notificationTitle, message: notificationMessage)
-        sendNotificationRequest(content: content, notifyAfter: notifyAfter)
-        
-        let playNowAction = getNotificationAction(title: "Play now!", actionIdentifier: .playNow, actionType: .foreground)
-        let remindAction = getNotificationAction(title: "Remind me later", actionIdentifier: .remindMe, actionType: .foreground)
-        let playLaterAction = getNotificationAction(title: "I'll Play later", actionIdentifier: .playLater, actionType: .destructive)
-        addNotificationActions(customActions: playNowAction, remindAction, playLaterAction)
-    }
-    
-    // Create content
-    func createNotificationContent(title: String, message: String) -> UNMutableNotificationContent {
+    static func send1huddleNotification() {
         let content = UNMutableNotificationContent()
-        content.categoryIdentifier = categoryIdentifier
-        content.title = title
-        content.body = message
+        content.categoryIdentifier = "My category"
+        content.title = "1 Huddle"
+        content.body = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
         content.badge = 1
         content.sound = UNNotificationSound.default
         
-        return content
+        sendNotificationRequest(content: content, notifyAfter: 8)
+        
+        let playNowAction = UNNotificationAction.init(identifier: ActionIdentifier.playNow.rawValue, title: "Play now!", options: .foreground)
+        let remindAction = UNNotificationAction.init(identifier: ActionIdentifier.remindMe.rawValue, title: "Remind me later", options: .foreground)
+        let playLaterAction = UNNotificationAction.init(identifier: ActionIdentifier.playLater.rawValue, title: "I'll Play later", options: .destructive)
+        
+        let category = UNNotificationCategory.init(identifier: "My category", actions: [playNowAction, remindAction, playLaterAction], intentIdentifiers: [], options: [])
+        
+        (UIApplication.shared.delegate as! AppDelegate).notificationCenter.setNotificationCategories([category])
     }
     
     // Notification request
-    func sendNotificationRequest(content: UNMutableNotificationContent, notifyAfter: TimeInterval) {
+    static func sendNotificationRequest(content: UNMutableNotificationContent, notifyAfter: TimeInterval) {
         var dateComponent = DateComponents()
         dateComponent.second = Calendar.current.component(.second, from: Date.now.addingTimeInterval(10))
         
@@ -60,25 +38,47 @@ struct NotificationHandler {
         
         let req = UNNotificationRequest.init(identifier: "Notify", content: content, trigger: trigger)
         
-        appDelegateInstance.notificationCenter.add(req) { error in
+        (UIApplication.shared.delegate as! AppDelegate).notificationCenter.add(req) { error in
             if let error = error {
                 print("Error in request notification \(error.localizedDescription)")
             }
         }
     }
+}
+
+//MARK: - Send 1H notification for incorrect answer
+extension NotificationHandler {
     
-    // Create action
-    func getNotificationAction(title: String, actionIdentifier: actionIdentiifier, actionType: UNNotificationActionOptions) -> UNNotificationAction {
-        let action = UNNotificationAction.init(identifier: actionIdentifier.rawValue, title: title, options: actionType)
+    static func scheduleQuestionNotification(for question: Question) {
+        let categoryID = "question"
         
-        return action
+        let content = UNMutableNotificationContent()
+        content.categoryIdentifier = categoryID
+        content.title = "Question"
+        content.body = question.title
+        content.userInfo = ["data": try! JSONEncoder().encode(question)]
+        
+        //TODO: set image from url on notification
+        //Remote URL -> Bundle URL; Downloading image & saving locally to generate a bundle url
+        let imageName = "applelogo"
+        if let imageURL = Bundle.main.url(forResource: imageName, withExtension: "png") {
+            let attachment = try! UNNotificationAttachment(identifier: imageName, url: imageURL, options: .none)
+                    
+            content.attachments = [attachment]
+        } else { print("no img") }
+        
+        
+        let actions: [UNNotificationAction] = question.answers.map { option in
+            let actionID = "Answer|\(option.value)"
+            return UNNotificationAction(identifier: actionID, title: option.value, options: .foreground)
+        }
+        
+        let notificationCategory = UNNotificationCategory(identifier: categoryID, actions: actions, intentIdentifiers: [], options: [])
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.notificationCenter.setNotificationCategories([notificationCategory])
+        
+        NotificationHandler.sendNotificationRequest(content: content, notifyAfter: 2)
     }
     
-    // Add actions
-    func addNotificationActions(customActions: UNNotificationAction...) {
-        
-        let category = UNNotificationCategory.init(identifier: categoryIdentifier, actions: customActions, intentIdentifiers: [], options: [])
-        
-        appDelegateInstance.notificationCenter.setNotificationCategories([category])
-    }
 }
