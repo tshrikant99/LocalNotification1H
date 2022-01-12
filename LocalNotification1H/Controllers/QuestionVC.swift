@@ -71,12 +71,7 @@ class QuestionVC: UIViewController {
         let answerSelected = question.answers[sender.tag]
         
         if answerSelected.isCorrect == false {
-            scheduleNotification()
+            NotificationHandler.scheduleQuestionNotification(for: question)
         }
     }
-    
-    func scheduleNotification() {
-        NotificationHandler.scheduleQuestionNotification(for: question)
-    }
-    
 }

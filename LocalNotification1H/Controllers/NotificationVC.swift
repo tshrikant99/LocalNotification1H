@@ -30,7 +30,7 @@ class NotificationVC: UIViewController {
                                          .init(value: "17", isCorrect: false),
                                          .init(value: "10", isCorrect: false),
                                          .init(value: "12", isCorrect: false)],
-                               imageURL: "https://robohash.org/lorem.png?set=set2&size=600x600")
+                               imageURL: "https://robohash.org/lorem.png?set=set2&size=200x200")
         navigationController?.pushViewController(vc, animated: true)
     }
 }

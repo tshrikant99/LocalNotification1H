@@ -60,25 +60,47 @@ extension NotificationHandler {
         
         //TODO: set image from url on notification
         //Remote URL -> Bundle URL; Downloading image & saving locally to generate a bundle url
-        let imageName = "applelogo"
-        if let imageURL = Bundle.main.url(forResource: imageName, withExtension: "png") {
-            let attachment = try! UNNotificationAttachment(identifier: imageName, url: imageURL, options: .none)
-                    
-            content.attachments = [attachment]
-        } else { print("no img") }
         
-        
-        let actions: [UNNotificationAction] = question.answers.map { option in
-            let actionID = "Answer|\(option.value)"
-            return UNNotificationAction(identifier: actionID, title: option.value, options: .foreground)
-        }
-        
-        let notificationCategory = UNNotificationCategory(identifier: categoryID, actions: actions, intentIdentifiers: [], options: [])
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.notificationCenter.setNotificationCategories([notificationCategory])
-        
-        NotificationHandler.sendNotificationRequest(content: content, notifyAfter: 2)
+        var imageDownloaded: UIImage!
+        if let url = URL(string: question.imageURL) {
+            
+            DispatchQueue.main.async {
+                
+                URLSession.shared.dataTask(with: url) { data, response, error in
+                    if error != nil {
+                        print("Error in image URL data task! \(error?.localizedDescription ?? "")")
+                    } else {
+                        if let imageData = data {
+                            imageDownloaded = UIImage(data: imageData)
+                            let pathURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+                            
+                            if let data = imageDownloaded.pngData(),
+                                let filePathURL = pathURL?.appendingPathComponent("notificationImage.png") {
+                                try? data.write(to: filePathURL)
+                                
+                                do {
+                                    let imageAttachment = try UNNotificationAttachment.init(identifier: "notificationImage.png", url: filePathURL, options: .none)
+                                    content.attachments = [imageAttachment]
+                                    
+                                    let actions: [UNNotificationAction] = question.answers.map { option in
+                                        let actionID = "Answer|\(option.value)"
+                                        return UNNotificationAction(identifier: actionID, title: option.value, options: .foreground)
+                                    }
+                                    
+                                    let notificationCategory = UNNotificationCategory(identifier: categoryID, actions: actions, intentIdentifiers: [], options: [])
+                                    
+                                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                                    appDelegate.notificationCenter.setNotificationCategories([notificationCategory])
+                                    
+                                    NotificationHandler.sendNotificationRequest(content: content, notifyAfter: 2)
+                                } catch {
+                                    print("error in image attachment : \(error)")
+                                }
+                            }
+                        }
+                    }
+                }.resume()
+            }
+        } else { print("Invalid image URL in Question") }
     }
-    
 }
