@@ -25,12 +25,7 @@ class NotificationVC: UIViewController {
     
     @IBAction func showQuestionPage(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QuestionVC") as! QuestionVC
-        vc.question = Question(title: "How many core values & standards make up the 1?",
-                               answers: [.init(value: "16", isCorrect: true),
-                                         .init(value: "17", isCorrect: false),
-                                         .init(value: "10", isCorrect: false),
-                                         .init(value: "12", isCorrect: false)],
-                               imageURL: "https://robohash.org/lorem.png?set=set2&size=200x200")
+        vc.question = [.aExample, .bExample, .cExample].randomElement()!
         navigationController?.pushViewController(vc, animated: true)
     }
 }

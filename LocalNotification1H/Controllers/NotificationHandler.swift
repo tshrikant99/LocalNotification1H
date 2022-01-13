@@ -30,7 +30,7 @@ struct NotificationHandler {
     }
     
     // Notification request
-    static func sendNotificationRequest(content: UNMutableNotificationContent, notifyAfter: TimeInterval) {
+    static func sendNotificationRequest(content: UNNotificationContent, notifyAfter: TimeInterval) {
         var dateComponent = DateComponents()
         dateComponent.second = Calendar.current.component(.second, from: Date.now.addingTimeInterval(10))
         
@@ -49,6 +49,30 @@ struct NotificationHandler {
 //MARK: - Send 1H notification for incorrect answer
 extension NotificationHandler {
     
+    typealias DownloadImageCompletion = (URL?)->Void
+    
+    static func downloadImage(from url: URL, directory: FileManager.SearchPathDirectory = .documentDirectory, completion: @escaping DownloadImageCompletion) {
+        URLSession.shared.dataTask(with: url) { data, _, _ in
+            guard let data = data else {
+                completion(nil)
+                return
+            }
+            
+            let imageName = UUID().uuidString
+            if let imageData = UIImage(data: data)?.jpegData(compressionQuality: 0.9),
+               let saveToURL = FileManager.default.urls(for: directory, in: .userDomainMask).first?.appendingPathComponent("\(imageName).jpg") {
+                do {
+                    try imageData.write(to: saveToURL)
+                    completion(saveToURL)
+                } catch {
+                    print(error.localizedDescription)
+                    completion(nil)
+                }
+            }
+        }
+        .resume()
+    }
+    
     static func scheduleQuestionNotification(for question: Question) {
         let categoryID = "question"
         
@@ -58,49 +82,34 @@ extension NotificationHandler {
         content.body = question.title
         content.userInfo = ["data": try! JSONEncoder().encode(question)]
         
-        //TODO: set image from url on notification
-        //Remote URL -> Bundle URL; Downloading image & saving locally to generate a bundle url
-        
-        var imageDownloaded: UIImage!
-        if let url = URL(string: question.imageURL) {
+        func schedule(_ content: UNNotificationContent) {
+            let actions: [UNNotificationAction] = question.answers.map { option in
+                let actionID = "Answer|\(option.value)"
+                return UNNotificationAction(identifier: actionID, title: option.value, options: .foreground)
+            }
+            
+            let notificationCategory = UNNotificationCategory(identifier: categoryID, actions: actions, intentIdentifiers: [], options: [])
             
             DispatchQueue.main.async {
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                appDelegate.notificationCenter.setNotificationCategories([notificationCategory])
                 
-                URLSession.shared.dataTask(with: url) { data, response, error in
-                    if error != nil {
-                        print("Error in image URL data task! \(error?.localizedDescription ?? "")")
-                    } else {
-                        if let imageData = data {
-                            imageDownloaded = UIImage(data: imageData)
-                            let pathURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
-                            
-                            if let data = imageDownloaded.pngData(),
-                                let filePathURL = pathURL?.appendingPathComponent("notificationImage.png") {
-                                try? data.write(to: filePathURL)
-                                
-                                do {
-                                    let imageAttachment = try UNNotificationAttachment.init(identifier: "notificationImage.png", url: filePathURL, options: .none)
-                                    content.attachments = [imageAttachment]
-                                    
-                                    let actions: [UNNotificationAction] = question.answers.map { option in
-                                        let actionID = "Answer|\(option.value)"
-                                        return UNNotificationAction(identifier: actionID, title: option.value, options: .foreground)
-                                    }
-                                    
-                                    let notificationCategory = UNNotificationCategory(identifier: categoryID, actions: actions, intentIdentifiers: [], options: [])
-                                    
-                                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                    appDelegate.notificationCenter.setNotificationCategories([notificationCategory])
-                                    
-                                    NotificationHandler.sendNotificationRequest(content: content, notifyAfter: 2)
-                                } catch {
-                                    print("error in image attachment : \(error)")
-                                }
-                            }
-                        }
-                    }
-                }.resume()
+                NotificationHandler.sendNotificationRequest(content: content, notifyAfter: 2)
             }
-        } else { print("Invalid image URL in Question") }
+        }
+        
+        
+        if let url = URL(string: question.imageURL) {
+            downloadImage(from: url) { bundleURL in
+                if  let bundleURL = bundleURL,
+                    let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
+                    content.attachments = [attachment]
+                }
+                
+                schedule(content)
+            }
+        } else {
+            schedule(content)
+        }
     }
 }

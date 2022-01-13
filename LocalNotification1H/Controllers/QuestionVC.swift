@@ -19,6 +19,31 @@ struct Question: Codable {
     let imageURL: String
 }
 
+extension Question {
+    
+    static var aExample: Self { .init(title: "How many core values & standards make up the 1?",
+                                      answers: [.init(value: "16", isCorrect: true),
+                                                .init(value: "17", isCorrect: false),
+                                                .init(value: "10", isCorrect: false),
+                                                .init(value: "12", isCorrect: false)].shuffled(),
+                                      imageURL: "https://robohash.org/aExample.png?set=set1&size=200x200") }
+    
+    static var bExample: Self { .init(title: "What is 2 + 2",
+                                      answers: [.init(value: "1", isCorrect: false),
+                                                .init(value: "3", isCorrect: false),
+                                                .init(value: "22", isCorrect: false),
+                                                .init(value: "4", isCorrect: true)].shuffled(),
+                                      imageURL: "https://robohash.org/bExample.png?set=set2&size=200x200") }
+    
+    static var cExample: Self { .init(title: "Which of these is not a browser?",
+                                      answers: [.init(value: "Firefox", isCorrect: false),
+                                                .init(value: "Google Chrome", isCorrect: false),
+                                                .init(value: "Opera", isCorrect: false),
+                                                .init(value: "Twitter", isCorrect: true)].shuffled(),
+                                      imageURL: "https://robohash.org/cExample.png?set=set3&size=200x200") }
+    
+}
+
 class QuestionVC: UIViewController {
     @IBOutlet weak var questionLabel: UILabel!
     
