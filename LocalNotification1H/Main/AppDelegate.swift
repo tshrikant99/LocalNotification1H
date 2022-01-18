@@ -71,23 +71,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
                 print("do nothing")
             }
         }
-//        if response.actionIdentifier.hasPrefix("Answer|") {
-//            let questionData = response.notification.request.content.userInfo["data"] as! Data
-//            let question = try! JSONDecoder().decode(Question.self, from: questionData)
-//            
-//            let correctAnswer = question.answers.first { $0.isCorrect }!.value
-//            let isCorrect: Bool = {
-//                let selectedAnswer = response.actionIdentifier.split(separator: "|").last!
-//                return selectedAnswer == correctAnswer
-//            }()
-//            
-//            let vc  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopupVC") as! PopupVC
-//            vc.modalPresentationStyle = .overCurrentContext
-//            vc.modalTransitionStyle = .crossDissolve
-//            
-//            vc.message = "You answer was \(isCorrect ? "right" : "wrong & The correct answer is \(correctAnswer)")"
-//            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(vc, animated: true, completion: nil)
-//            
+
 //            //TODO: Popup instead of simple alert
 ////            let alert = UIAlertController(title: question.title,
 ////                                          message: "You answer was \(isCorrect ? "right" : "wrong")",
@@ -95,18 +79,7 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
 ////            alert.addAction(UIAlertAction(title: "Ok, Whatever!", style: .default))
 ////
 ////            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(alert, animated: true)
-//        } else {
-//            switch response.actionIdentifier {
-//            case ActionIdentifier.playNow.rawValue:
-//                goToAnotherViewController(storyBoard: "Main", viewControllerIdentifier: "SecondVC")
-//            case ActionIdentifier.remindMe.rawValue:
-//                NotificationHandler.scheduleContestReminder()
-//            case ActionIdentifier.playLater.rawValue:
-//                print("Later pressed")
-//            default:
-//                print("other pressed")
-//            }
-//        }
+
     }
     
     func goToAnotherViewController(storyBoard: String, viewControllerIdentifier: String, isCorrectAnswer: Bool? = false) {

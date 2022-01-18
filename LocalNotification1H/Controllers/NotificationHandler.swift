@@ -10,8 +10,6 @@ import UserNotifications
 
 struct NotificationHandler {
     
-    static var categoryArray: Set<UNNotificationCategory> = []
-    
     ///We decide the different notification categories & set the relevant generic actions
     static func registerCategoryActions() {
         let contestCategory: UNNotificationCategory = {
