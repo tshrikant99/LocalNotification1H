@@ -19,6 +19,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if let error = error {
                 print("Error in request authorize \(error.localizedDescription)")
+            } else {
+                NotificationHandler.registerCategoryActions()
             }
         }
         return true
@@ -40,36 +42,71 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     }
     
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        if response.actionIdentifier.hasPrefix("Answer|") {
-            let questionData = response.notification.request.content.userInfo["data"] as! Data
-            let question = try! JSONDecoder().decode(Question.self, from: questionData)
+        let categoryIdentifierRawValue = response.notification.request.content.categoryIdentifier
+        guard let categoryID = UNNotificationCategory.CustomKeys(rawValue: categoryIdentifierRawValue)
+        else { return }
+        
+        let actionIdentifierRawValue = response.actionIdentifier
+        switch categoryID {
+        case .contest:
+            guard let actionIdentifier = UNNotificationAction.ContestActions(rawValue: actionIdentifierRawValue) else { return }
             
-            let isCorrect: Bool = {
-                let selectedAnswer = response.actionIdentifier.split(separator: "|").last!
-                let correctAnswer = question.answers.first { $0.isCorrect }!.value
-                
-                return selectedAnswer == correctAnswer
-            }()
+            switch actionIdentifier {
+            case .playNow:
+                print("show contest")
+            case .remindMeLater:
+                print("reschedule the notification after 10 secs")
+            case .ignore:
+                print("do nothing")
+            }
+        case .question:
+            guard let actionIdentifier = UNNotificationAction.QuestionActions(rawValue: actionIdentifierRawValue) else { return }
             
-            //TODO: Popup instead of simple alert
-            let alert = UIAlertController(title: question.title,
-                                          message: "You answer was \(isCorrect ? "right" : "wrong")",
-                                          preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok, Whatever!", style: .default))
-            
-            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(alert, animated: true)
-        } else {
-            switch response.actionIdentifier {
-            case ActionIdentifier.playNow.rawValue:
-                goToAnotherViewController(storyBoard: "Main", viewControllerIdentifier: "SecondVC")
-            case ActionIdentifier.remindMe.rawValue:
-                NotificationHandler.send1huddleNotification()
-            case ActionIdentifier.playLater.rawValue:
-                print("Later pressed")
-            default:
-                print("other pressed")
+            switch actionIdentifier {
+            case .attemptAnswer:
+                print("show popup with question content & 4 answer options that are functional")
+            case .showAnswer:
+                print("show popup with question content & 4 answer options with the correct answer already highlighted")
+            case .ignore:
+                print("do nothing")
             }
         }
+//        if response.actionIdentifier.hasPrefix("Answer|") {
+//            let questionData = response.notification.request.content.userInfo["data"] as! Data
+//            let question = try! JSONDecoder().decode(Question.self, from: questionData)
+//            
+//            let correctAnswer = question.answers.first { $0.isCorrect }!.value
+//            let isCorrect: Bool = {
+//                let selectedAnswer = response.actionIdentifier.split(separator: "|").last!
+//                return selectedAnswer == correctAnswer
+//            }()
+//            
+//            let vc  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopupVC") as! PopupVC
+//            vc.modalPresentationStyle = .overCurrentContext
+//            vc.modalTransitionStyle = .crossDissolve
+//            
+//            vc.message = "You answer was \(isCorrect ? "right" : "wrong & The correct answer is \(correctAnswer)")"
+//            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(vc, animated: true, completion: nil)
+//            
+//            //TODO: Popup instead of simple alert
+////            let alert = UIAlertController(title: question.title,
+////                                          message: "You answer was \(isCorrect ? "right" : "wrong")",
+////                                          preferredStyle: .alert)
+////            alert.addAction(UIAlertAction(title: "Ok, Whatever!", style: .default))
+////
+////            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(alert, animated: true)
+//        } else {
+//            switch response.actionIdentifier {
+//            case ActionIdentifier.playNow.rawValue:
+//                goToAnotherViewController(storyBoard: "Main", viewControllerIdentifier: "SecondVC")
+//            case ActionIdentifier.remindMe.rawValue:
+//                NotificationHandler.scheduleContestReminder()
+//            case ActionIdentifier.playLater.rawValue:
+//                print("Later pressed")
+//            default:
+//                print("other pressed")
+//            }
+//        }
     }
     
     func goToAnotherViewController(storyBoard: String, viewControllerIdentifier: String, isCorrectAnswer: Bool? = false) {

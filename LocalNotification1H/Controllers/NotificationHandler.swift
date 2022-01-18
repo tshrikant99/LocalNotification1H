@@ -10,33 +10,71 @@ import UserNotifications
 
 struct NotificationHandler {
     
-    static func send1huddleNotification() {
-        let content = UNMutableNotificationContent()
-        content.categoryIdentifier = "My category"
-        content.title = "1 Huddle"
-        content.body = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
-        content.badge = 1
-        content.sound = UNNotificationSound.default
+    static var categoryArray: Set<UNNotificationCategory> = []
+    
+    ///We decide the different notification categories & set the relevant generic actions
+    static func registerCategoryActions() {
+        let contestCategory: UNNotificationCategory = {
+            let action1 = UNNotificationAction(identifier: UNNotificationAction.ContestActions.playNow.rawValue,
+                                               title: UNNotificationAction.ContestActions.playNow.title,
+                                               options: .foreground)
+            
+            //TODO: This should dismiss the notification & re-schedule the same after another N secs
+            let action2 = UNNotificationAction(identifier: UNNotificationAction.ContestActions.remindMeLater.rawValue,
+                                               title: UNNotificationAction.ContestActions.remindMeLater.title,
+                                               options: .destructive)
+            
+            let action3 = UNNotificationAction(identifier: UNNotificationAction.ContestActions.ignore.rawValue,
+                                               title: UNNotificationAction.ContestActions.ignore.title,
+                                               options: .destructive)
+            
+            let category = UNNotificationCategory(identifier: UNNotificationCategory.CustomKeys.contest.rawValue,
+                                                  actions: [action1, action2, action3],
+                                                  intentIdentifiers: [])
+            return category
+        }()
         
-        sendNotificationRequest(content: content, notifyAfter: 8)
+        let questionCategory: UNNotificationCategory = {
+            let action1 = UNNotificationAction(identifier: UNNotificationAction.QuestionActions.attemptAnswer.rawValue,
+                                               title: UNNotificationAction.QuestionActions.attemptAnswer.title,
+                                               options: .foreground)
+            
+            let action2 = UNNotificationAction(identifier: UNNotificationAction.QuestionActions.showAnswer.rawValue,
+                                               title: UNNotificationAction.QuestionActions.showAnswer.title,
+                                               options: .foreground)
+            
+            let action3 = UNNotificationAction(identifier: UNNotificationAction.QuestionActions.ignore.rawValue,
+                                               title: UNNotificationAction.QuestionActions.ignore.title,
+                                               options: .destructive)
+            
+            let category = UNNotificationCategory(identifier: UNNotificationCategory.CustomKeys.question.rawValue,
+                                                  actions: [action1, action2, action3],
+                                                  intentIdentifiers: [])
+            return category
+        }()
         
-        let playNowAction = UNNotificationAction.init(identifier: ActionIdentifier.playNow.rawValue, title: "Play now!", options: .foreground)
-        let remindAction = UNNotificationAction.init(identifier: ActionIdentifier.remindMe.rawValue, title: "Remind me later", options: .foreground)
-        let playLaterAction = UNNotificationAction.init(identifier: ActionIdentifier.playLater.rawValue, title: "I'll Play later", options: .destructive)
-        
-        let category = UNNotificationCategory.init(identifier: "My category", actions: [playNowAction, remindAction, playLaterAction], intentIdentifiers: [], options: [])
-        
-        (UIApplication.shared.delegate as! AppDelegate).notificationCenter.setNotificationCategories([category])
+        DispatchQueue.main.async {
+            (UIApplication.shared.delegate as! AppDelegate).notificationCenter.setNotificationCategories([contestCategory, questionCategory])
+        }
     }
     
-    // Notification request
-    static func sendNotificationRequest(content: UNNotificationContent, notifyAfter: TimeInterval) {
+    static func scheduleContestReminder() {
+        let content = UNMutableNotificationContent()
+        content.categoryIdentifier = UNNotificationCategory.CustomKeys.contest.rawValue
+        
+        content.title = "1 Huddle"
+        content.body = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
+        
+        sendNotificationRequest(content: content, notifyAfter: 10)
+    }
+    
+    private static func sendNotificationRequest(content: UNNotificationContent, notifyAfter: TimeInterval) {
         var dateComponent = DateComponents()
-        dateComponent.second = Calendar.current.component(.second, from: Date.now.addingTimeInterval(10))
+        dateComponent.second = Calendar.current.component(.second, from: Date.now.addingTimeInterval(notifyAfter))
         
         let trigger = UNCalendarNotificationTrigger.init(dateMatching: dateComponent, repeats: false)
         
-        let req = UNNotificationRequest.init(identifier: "Notify", content: content, trigger: trigger)
+        let req = UNNotificationRequest.init(identifier: UUID().uuidString, content: content, trigger: trigger)
         
         (UIApplication.shared.delegate as! AppDelegate).notificationCenter.add(req) { error in
             if let error = error {
@@ -51,7 +89,7 @@ extension NotificationHandler {
     
     typealias DownloadImageCompletion = (URL?)->Void
     
-    static func downloadImage(from url: URL, directory: FileManager.SearchPathDirectory = .documentDirectory, completion: @escaping DownloadImageCompletion) {
+    private static func downloadImage(from url: URL, directory: FileManager.SearchPathDirectory = .documentDirectory, completion: @escaping DownloadImageCompletion) {
         URLSession.shared.dataTask(with: url) { data, _, _ in
             guard let data = data else {
                 completion(nil)
@@ -74,30 +112,11 @@ extension NotificationHandler {
     }
     
     static func scheduleQuestionNotification(for question: Question) {
-        let categoryID = "question"
-        
         let content = UNMutableNotificationContent()
-        content.categoryIdentifier = categoryID
+        content.categoryIdentifier = UNNotificationCategory.CustomKeys.question.rawValue
         content.title = "Question"
         content.body = question.title
         content.userInfo = ["data": try! JSONEncoder().encode(question)]
-        
-        func schedule(_ content: UNNotificationContent) {
-            let actions: [UNNotificationAction] = question.answers.map { option in
-                let actionID = "Answer|\(option.value)"
-                return UNNotificationAction(identifier: actionID, title: option.value, options: .foreground)
-            }
-            
-            let notificationCategory = UNNotificationCategory(identifier: categoryID, actions: actions, intentIdentifiers: [], options: [])
-            
-            DispatchQueue.main.async {
-                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                appDelegate.notificationCenter.setNotificationCategories([notificationCategory])
-                
-                NotificationHandler.sendNotificationRequest(content: content, notifyAfter: 2)
-            }
-        }
-        
         
         if let url = URL(string: question.imageURL) {
             downloadImage(from: url) { bundleURL in
@@ -106,10 +125,12 @@ extension NotificationHandler {
                     content.attachments = [attachment]
                 }
                 
-                schedule(content)
+                DispatchQueue.main.async {
+                    sendNotificationRequest(content: content, notifyAfter: 10)
+                }
             }
         } else {
-            schedule(content)
+            sendNotificationRequest(content: content, notifyAfter: 10)
         }
     }
 }

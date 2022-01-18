@@ -20,7 +20,7 @@ class NotificationVC: UIViewController {
     }
     
     @IBAction func onNotifyPressed(_ sender: UIButton) {
-        NotificationHandler.send1huddleNotification()
+        NotificationHandler.scheduleContestReminder()
     }
     
     @IBAction func showQuestionPage(_ sender: Any) {
@@ -30,8 +30,43 @@ class NotificationVC: UIViewController {
     }
 }
 
-enum ActionIdentifier: String {
-    case playNow = "play now"
-    case remindMe = "remind me"
-    case playLater = "play later"
+extension UNNotificationCategory {
+    
+    enum CustomKeys: String {
+        case contest
+        case question
+    }
+    
+}
+
+extension UNNotificationAction {
+    
+    enum ContestActions: String {
+        case playNow
+        case remindMeLater
+        case ignore
+        
+        var title: String {
+            switch self {
+            case .playNow       : return "Play Now"
+            case .remindMeLater : return "Remind me later"
+            case .ignore        : return "Don't remind me"
+            }
+        }
+    }
+    
+    enum QuestionActions: String {
+        case attemptAnswer
+        case showAnswer
+        case ignore
+        
+        var title: String {
+            switch self {
+            case .attemptAnswer : return "Attempt" //open app & show a popup with the question & 4 options
+            case .showAnswer    : return "Show Answer" //open app & show popup with the answer
+            case .ignore        : return "Don't remind me"
+            }
+        }
+    }
+    
 }
