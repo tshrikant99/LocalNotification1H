@@ -61,25 +61,30 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             }
         case .question:
             guard let actionIdentifier = UNNotificationAction.QuestionActions(rawValue: actionIdentifierRawValue) else { return }
+            let questionData = response.notification.request.content.userInfo["data"] as! Data
+            let question = try! JSONDecoder().decode(Question.self, from: questionData)
             
             switch actionIdentifier {
             case .attemptAnswer:
                 print("show popup with question content & 4 answer options that are functional")
+                showQuestionPopup(wantsToAttempt: true, question: question)
             case .showAnswer:
                 print("show popup with question content & 4 answer options with the correct answer already highlighted")
+                showQuestionPopup(wantsToAttempt: false, question: question)
             case .ignore:
                 print("do nothing")
             }
         }
-
-//            //TODO: Popup instead of simple alert
-////            let alert = UIAlertController(title: question.title,
-////                                          message: "You answer was \(isCorrect ? "right" : "wrong")",
-////                                          preferredStyle: .alert)
-////            alert.addAction(UIAlertAction(title: "Ok, Whatever!", style: .default))
-////
-////            UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(alert, animated: true)
-
+    }
+    
+    func showQuestionPopup(wantsToAttempt: Bool, question: Question) {
+        let vc  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "PopupVC") as! PopupVC
+        vc.viewModel = PopupVM(question: question, isAttempt: wantsToAttempt)
+        
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        
+        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(vc, animated: true, completion: nil)
     }
     
     func goToAnotherViewController(storyBoard: String, viewControllerIdentifier: String, isCorrectAnswer: Bool? = false) {
