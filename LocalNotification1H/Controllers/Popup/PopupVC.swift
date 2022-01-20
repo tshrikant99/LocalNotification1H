@@ -9,10 +9,16 @@ import UIKit
 
 class PopupVC: UIViewController {
 
-    @IBOutlet weak var popupTitle: UILabel!
-    @IBOutlet weak var answerLabel: UILabel!
+    @IBOutlet weak var containerView: UIView!
+    @IBOutlet weak var closeButton: UIButton!
+    
+    @IBOutlet weak var questionTitleLabel: UILabel!
+    @IBOutlet weak var imageView: UIImageView!
+    
+    @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     
     @IBOutlet var buttons: [UIButton]!
+    @IBOutlet var buttonStack: UIStackView!
     
     var viewModel: PopupVM! 
     
@@ -24,34 +30,69 @@ class PopupVC: UIViewController {
     }
     
     func setupUI() {
+        containerView.layer.cornerRadius = 8
+        containerView.layer.masksToBounds = true
+        closeButton.layer.cornerRadius = closeButton.bounds.width/2
+        closeButton.layer.masksToBounds = true
         
-        popupTitle.text = viewModel.question.title
-        answerLabel.isHidden = viewModel.attemptAnswer
+        questionTitleLabel.text = viewModel.question.title
         
-        if viewModel.attemptAnswer {
-            buttons.enumerated().forEach { (idx, button) in
-                button.setTitle(viewModel.question.answers[idx].value, for: .normal)
-            }
+        if let urlString = viewModel.question.imageURL,
+            let url = URL(string: urlString) {
+            URLSession.shared.dataTask(with: url) { data, _, _ in
+                if let data = data, let image = UIImage(data: data) {
+                    DispatchQueue.main.async {
+                        self.imageView.image = image
+                    }
+                }
+            }.resume()
         } else {
-            answerLabel.text = viewModel.question.answers.first { $0.isCorrect }!.value
+            imageViewHeight.constant = 0
+            imageView.isHidden = true
+        }
+        
+        buttons.enumerated().forEach { (idx, button) in
+            button.layer.cornerRadius = 4
+            button.layer.masksToBounds = true
             
-            buttons.forEach { button in
-                button.isHidden = true
-            }
+            button.setTitle(viewModel.question.answers[idx].value, for: .normal)
+        }
+        
+        if viewModel.attemptAnswer == false {
+            guard let correctAnswerIndex = viewModel.question.answers.firstIndex( where: { $0.isCorrect })
+            else { return }
+            selectAnswer(at: correctAnswerIndex)
         }
     }
+    
+    private func selectAnswer(at index: Int) {
+        guard let correctAnswerIndex = viewModel.question.answers.firstIndex( where: { $0.isCorrect })
+        else { return }
+        
+        let selectedButton = buttons[index]
+        
+        if correctAnswerIndex == selectedButton.tag {
+            selectedButton.backgroundColor = .green
+        } else {
+            let answerButton = buttons[correctAnswerIndex]
+            answerButton.backgroundColor = .green
+            
+            selectedButton.backgroundColor = .red
+        }
+        
+        buttonStack.isUserInteractionEnabled = false
+    }
+    
+}
+
+extension PopupVC {
     
     @IBAction func tapOnButton(_ sender: UIButton) {
-        let answerTag = viewModel.question.answers[sender.tag]
-        if answerTag.isCorrect {
-            sender.backgroundColor = .green
-        } else {
-            sender.backgroundColor = .red
-        }
-        
+        selectAnswer(at: sender.tag)
     }
     
-    @IBAction func goBack(_ sender: UIButton) {
+    @IBAction func closeButtonPressed(_ sender: UIButton) {
         self.dismiss(animated: true, completion: nil)
     }
+    
 }

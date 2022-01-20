@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9049B1E127993CF90008F99A /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E027993CF90008F99A /* Helpers.swift */; };
+		9049B1E327993D660008F99A /* UNUserNotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */; };
+		9049B1E5279941130008F99A /* PopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9049B1E4279941130008F99A /* PopupVC.xib */; };
 		C90CF83B278729C0000B704C /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CF83A278729C0000B704C /* QuestionVC.swift */; };
 		C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2032768A11D00BEF268 /* AppDelegate.swift */; };
 		C93AE2062768A11D00BEF268 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2052768A11D00BEF268 /* SceneDelegate.swift */; };
@@ -21,6 +24,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9049B1E027993CF90008F99A /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
+		9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenterManager.swift; sourceTree = "<group>"; };
+		9049B1E4279941130008F99A /* PopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupVC.xib; sourceTree = "<group>"; };
 		C90CF83A278729C0000B704C /* QuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionVC.swift; sourceTree = "<group>"; };
 		C93AE2002768A11D00BEF268 /* LocalNotification1H.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalNotification1H.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93AE2032768A11D00BEF268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -81,6 +87,7 @@
 			children = (
 				C97CADBD278EFB7D003F9564 /* PopupVC.swift */,
 				C9BBE16A27984AB9002978B4 /* PopupVM.swift */,
+				9049B1E4279941130008F99A /* PopupVC.xib */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -101,6 +108,8 @@
 				C93AE2072768A11D00BEF268 /* NotificationVC.swift */,
 				C9852B9F2769D84B005BCC00 /* SecondVC.swift */,
 				C968DFD3276B32B800DF86EE /* NotificationHandler.swift */,
+				9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */,
+				9049B1E027993CF90008F99A /* Helpers.swift */,
 				C90CF83A278729C0000B704C /* QuestionVC.swift */,
 			);
 			path = Controllers;
@@ -173,6 +182,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C93AE2102768A11F00BEF268 /* LaunchScreen.storyboard in Resources */,
+				9049B1E5279941130008F99A /* PopupVC.xib in Resources */,
 				C93AE20D2768A11F00BEF268 /* Assets.xcassets in Resources */,
 				C93AE20B2768A11D00BEF268 /* Main.storyboard in Resources */,
 			);
@@ -188,7 +198,9 @@
 				C93AE2082768A11D00BEF268 /* NotificationVC.swift in Sources */,
 				C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */,
 				C968DFD4276B32B800DF86EE /* NotificationHandler.swift in Sources */,
+				9049B1E327993D660008F99A /* UNUserNotificationCenterManager.swift in Sources */,
 				C97CADBE278EFB7D003F9564 /* PopupVC.swift in Sources */,
+				9049B1E127993CF90008F99A /* Helpers.swift in Sources */,
 				C9852BA02769D84C005BCC00 /* SecondVC.swift in Sources */,
 				C90CF83B278729C0000B704C /* QuestionVC.swift in Sources */,
 				C93AE2062768A11D00BEF268 /* SceneDelegate.swift in Sources */,

@@ -52,9 +52,26 @@ struct NotificationHandler {
         }()
         
         DispatchQueue.main.async {
-            (UIApplication.shared.delegate as! AppDelegate).notificationCenter.setNotificationCategories([contestCategory, questionCategory])
+            UNUserNotificationCenterManager.shared.notificationCenter.setNotificationCategories([contestCategory, questionCategory])
         }
     }
+    
+    private static func sendNotificationRequest(content: UNNotificationContent, notifyAfter: TimeInterval) {
+        var dateComponent = DateComponents()
+        dateComponent.second = Calendar.current.component(.second, from: Date.now.addingTimeInterval(notifyAfter))
+        
+        let trigger = UNCalendarNotificationTrigger.init(dateMatching: dateComponent, repeats: false)
+        
+        let req = UNNotificationRequest.init(identifier: UUID().uuidString, content: content, trigger: trigger)
+        
+        UNUserNotificationCenterManager.shared.notificationCenter.add(req) { error in
+            print(error?.localizedDescription)
+        }
+    }
+}
+
+//MARK: Scheduling Notification
+extension NotificationHandler {
     
     static func scheduleContestReminder() {
         let content = UNMutableNotificationContent()
@@ -66,49 +83,6 @@ struct NotificationHandler {
         sendNotificationRequest(content: content, notifyAfter: 10)
     }
     
-    private static func sendNotificationRequest(content: UNNotificationContent, notifyAfter: TimeInterval) {
-        var dateComponent = DateComponents()
-        dateComponent.second = Calendar.current.component(.second, from: Date.now.addingTimeInterval(notifyAfter))
-        
-        let trigger = UNCalendarNotificationTrigger.init(dateMatching: dateComponent, repeats: false)
-        
-        let req = UNNotificationRequest.init(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-        (UIApplication.shared.delegate as! AppDelegate).notificationCenter.add(req) { error in
-            if let error = error {
-                print("Error in request notification \(error.localizedDescription)")
-            }
-        }
-    }
-}
-
-//MARK: - Send 1H notification for incorrect answer
-extension NotificationHandler {
-    
-    typealias DownloadImageCompletion = (URL?)->Void
-    
-    private static func downloadImage(from url: URL, directory: FileManager.SearchPathDirectory = .documentDirectory, completion: @escaping DownloadImageCompletion) {
-        URLSession.shared.dataTask(with: url) { data, _, _ in
-            guard let data = data else {
-                completion(nil)
-                return
-            }
-            
-            let imageName = UUID().uuidString
-            if let imageData = UIImage(data: data)?.jpegData(compressionQuality: 0.9),
-               let saveToURL = FileManager.default.urls(for: directory, in: .userDomainMask).first?.appendingPathComponent("\(imageName).jpg") {
-                do {
-                    try imageData.write(to: saveToURL)
-                    completion(saveToURL)
-                } catch {
-                    print(error.localizedDescription)
-                    completion(nil)
-                }
-            }
-        }
-        .resume()
-    }
-    
     static func scheduleQuestionNotification(for question: Question) {
         let content = UNMutableNotificationContent()
         content.categoryIdentifier = UNNotificationCategory.CustomKeys.question.rawValue
@@ -116,7 +90,8 @@ extension NotificationHandler {
         content.body = question.title
         content.userInfo = ["data": try! JSONEncoder().encode(question)]
         
-        if let url = URL(string: question.imageURL) {
+        if let urlString = question.imageURL,
+            let url = URL(string: urlString) {
             downloadImage(from: url) { bundleURL in
                 if  let bundleURL = bundleURL,
                     let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
@@ -131,4 +106,5 @@ extension NotificationHandler {
             sendNotificationRequest(content: content, notifyAfter: 10)
         }
     }
+    
 }

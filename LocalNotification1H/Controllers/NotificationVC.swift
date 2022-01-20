@@ -25,7 +25,7 @@ class NotificationVC: UIViewController {
     
     @IBAction func showQuestionPage(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QuestionVC") as! QuestionVC
-        vc.question = [.aExample, .bExample, .cExample].randomElement()!
+        vc.question = [.aExample, .bExample, .cExample, .dExample, .eExample].randomElement()!
         navigationController?.pushViewController(vc, animated: true)
     }
 }
