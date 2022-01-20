@@ -104,3 +104,15 @@ extension PopupVC {
     }
     
 }
+
+extension PopupVC {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard let touch = touches.first else { return }
+        
+        // Dismiss popup when touching main view i.e. outer view 
+        if touch.view == self.view {
+            self.dismiss(animated: true, completion: nil)
+        }
+            
+    }
+}
