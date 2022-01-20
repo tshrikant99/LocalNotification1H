@@ -61,18 +61,23 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
             }
         case .question:
             guard let actionIdentifier = UNNotificationAction.QuestionActions(rawValue: actionIdentifierRawValue) else { return }
-            let questionData = response.notification.request.content.userInfo["data"] as! Data
-            let question = try! JSONDecoder().decode(Question.self, from: questionData)
             
-            switch actionIdentifier {
-            case .attemptAnswer:
-                print("show popup with question content & 4 answer options that are functional")
-                showQuestionPopup(wantsToAttempt: true, question: question)
-            case .showAnswer:
-                print("show popup with question content & 4 answer options with the correct answer already highlighted")
-                showQuestionPopup(wantsToAttempt: false, question: question)
-            case .ignore:
-                print("do nothing")
+            do {
+                let questionData = response.notification.request.content.userInfo["data"] as! Data
+                let question = try JSONDecoder().decode(Question.self, from: questionData)
+                
+                switch actionIdentifier {
+                case .attemptAnswer:
+                    print("show popup with question content & 4 answer options that are functional")
+                    showQuestionPopup(wantsToAttempt: true, question: question)
+                case .showAnswer:
+                    print("show popup with question content & 4 answer options with the correct answer already highlighted")
+                    showQuestionPopup(wantsToAttempt: false, question: question)
+                case .ignore:
+                    print("do nothing")
+                }
+            } catch {
+                print(error.localizedDescription)
             }
         }
     }
