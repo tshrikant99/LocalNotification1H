@@ -17,6 +17,9 @@ class PopupVC: UIViewController {
     
     @IBOutlet weak var imageViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var headerLabel: UILabel!
+    
     @IBOutlet var buttons: [UIButton]!
     @IBOutlet var buttonStack: UIStackView!
     
@@ -32,8 +35,13 @@ class PopupVC: UIViewController {
     func setupUI() {
         containerView.layer.cornerRadius = 8
         containerView.layer.masksToBounds = true
+        
         closeButton.layer.cornerRadius = closeButton.bounds.width/2
         closeButton.layer.masksToBounds = true
+        
+        headerView.layer.cornerRadius = 8
+        headerView.layer.masksToBounds = true
+        headerLabel.text = "Question"
         
         questionTitleLabel.text = viewModel.question.title
         
