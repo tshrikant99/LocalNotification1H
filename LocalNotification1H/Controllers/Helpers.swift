@@ -9,18 +9,37 @@ import UIKit
 
 typealias DownloadImageCompletion = (URL?)->Void
 
-func downloadImage(from url: URL, directory: FileManager.SearchPathDirectory = .documentDirectory, completion: @escaping DownloadImageCompletion) {
+enum DownloadType {
+    case image
+    case gif
+    case video
+}
+
+func downloadImage(type: DownloadType , from url: URL, directory: FileManager.SearchPathDirectory = .documentDirectory, completion: @escaping DownloadImageCompletion) {
     URLSession.shared.dataTask(with: url) { data, _, _ in
+        
         guard let data = data else {
             completion(nil)
             return
         }
         
-        let imageName = UUID().uuidString
-        if let imageData = UIImage(data: data)?.jpegData(compressionQuality: 0.9),
-           let saveToURL = FileManager.default.urls(for: directory, in: .userDomainMask).first?.appendingPathComponent("\(imageName).jpg") {
+        let file = UUID().uuidString
+        
+        var extensionToSave = ""
+        
+        switch type {
+        case .image:
+            extensionToSave = ".jpg"
+        case .gif:
+            extensionToSave = ".gif"
+        case .video:
+            extensionToSave = ".mp4"
+        }
+        
+        if let saveToURL = FileManager.default.urls(for: directory, in: .userDomainMask).first?.appendingPathComponent("\(file)\(extensionToSave)") {
             do {
-                try imageData.write(to: saveToURL)
+                print(saveToURL)
+                try data.write(to: saveToURL)
                 completion(saveToURL)
             } catch {
                 print(error.localizedDescription)

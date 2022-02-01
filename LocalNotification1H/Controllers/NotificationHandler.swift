@@ -80,8 +80,10 @@ extension NotificationHandler {
         content.title = "1 Huddle"
         content.body = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
         
-        sendNotificationRequest(content: content, notifyAfter: 10)
+        sendNotificationRequest(content: content, notifyAfter: 2)
     }
+    
+    
     
     static func scheduleQuestionNotification(for question: Question) {
         let content = UNMutableNotificationContent()
@@ -91,15 +93,15 @@ extension NotificationHandler {
         content.userInfo = ["data": try! JSONEncoder().encode(question)]
         
         if let urlString = question.imageURL,
-            let url = URL(string: urlString) {
-            downloadImage(from: url) { bundleURL in
+           let url = URL(string: urlString) {
+            downloadImage(type: .image, from: url) { bundleURL in
                 if  let bundleURL = bundleURL,
                     let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
                     content.attachments = [attachment]
                 }
                 
                 DispatchQueue.main.async {
-                    sendNotificationRequest(content: content, notifyAfter: 10)
+                    sendNotificationRequest(content: content, notifyAfter: 2)
                 }
             }
         } else {
@@ -107,4 +109,74 @@ extension NotificationHandler {
         }
     }
     
+}
+
+extension NotificationHandler {
+    static func showGifNotification() {
+        
+        let content = UNMutableNotificationContent()
+        content.categoryIdentifier = UNNotificationCategory.CustomKeys.contest.rawValue
+        
+        content.title = "Error "
+        content.body = "Hey! how did you got this error. LOL :D"
+        
+        // Load gif from url
+        //                let gifURL = "https://i.pinimg.com/originals/fe/df/71/fedf7125acf620e856b6d09ef44eee51.gif"
+        //                if let url = URL(string: gifURL) {
+        //                    downloadImage(type: .gif, from: url) { bundleUrl in
+        //                        if  let bundleURL = bundleUrl,
+        //                            let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
+        //                            content.attachments = [attachment]
+        //                        }
+        //
+        //                        DispatchQueue.main.async {
+        //                            sendNotificationRequest(content: content, notifyAfter: 4)
+        //                        }
+        //                    }
+        //                }
+        
+        // load gif from bundle
+        //        if let gifURL = Bundle.main.url(forResource: "error-wait", withExtension: ".gif") {
+        //            do {
+        //                content.attachments = try [.init(identifier: "gifFile", url: gifURL)]
+        //            } catch {
+        //                print("error \(error.localizedDescription)")
+        //            }
+        //        }
+        sendNotificationRequest(content: content, notifyAfter: 2)
+    }
+}
+
+extension NotificationHandler {
+    static func showVideoNotification() {
+        let content = UNMutableNotificationContent()
+        content.categoryIdentifier = UNNotificationCategory.CustomKeys.contest.rawValue
+        
+        content.title = "1 Huddle"
+        content.body = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
+        let videoUrlString = "https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4"
+        
+        if let url = URL(string: videoUrlString) {
+            downloadImage(type: .video, from: url) { bundleUrl in
+                if  let bundleURL = bundleUrl,
+                    let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
+                    content.attachments = [attachment]
+                }
+                
+                DispatchQueue.main.async {
+                    sendNotificationRequest(content: content, notifyAfter: 4)
+                }
+            }
+        }
+        
+        // Video From Bundle path
+//        if let videoURL = Bundle.main.url(forResource: "TVS", withExtension: ".mp4") {
+//            do {
+//                content.attachments = try [.init(identifier: "video", url: videoURL)]
+//            } catch {
+//                print("error \(error.localizedDescription)")
+//            }
+//        }
+//        sendNotificationRequest(content: content, notifyAfter: 2)
+    }
 }

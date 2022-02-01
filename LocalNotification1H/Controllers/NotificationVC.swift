@@ -23,6 +23,15 @@ class NotificationVC: UIViewController {
         NotificationHandler.scheduleContestReminder()
     }
     
+    @IBAction func showGifNotification(_ sender: UIButton) {
+        NotificationHandler.showGifNotification()
+    }
+    
+    @IBAction func showVideoNotificaion(_ sender: UIButton) {
+        NotificationHandler.showVideoNotification()
+    }
+    
+    
     @IBAction func showQuestionPage(_ sender: Any) {
         let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QuestionVC") as! QuestionVC
         vc.question = [.aExample, .bExample, .cExample, .dExample, .eExample].randomElement()!
