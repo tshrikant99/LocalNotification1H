@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Notification View Controller-->
+        <scene sceneID="cwh-vc-ff4">
+            <objects>
+                <viewController id="M4Y-Lb-cyx" userLabel="Notification View Controller" customClass="NotificationViewController" customModule="LocalNotificationContent" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="joey" translatesAutoresizingMaskIntoConstraints="NO" id="4Cp-J5-uTb">
+                                <rect key="frame" x="20" y="20" width="280" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="180" id="sWc-F8-S6g"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Can you guess this character?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FCB-3E-r5Y">
+                                <rect key="frame" x="20" y="204" width="280" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btr-yJ-eaj">
+                                <rect key="frame" x="115.5" y="229.5" width="89" height="31"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Click here"/>
+                                <connections>
+                                    <action selector="onClickNotificationButton:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="hFP-PR-5m0"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="2BE-c3-nQJ"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2BE-c3-nQJ" firstAttribute="trailing" secondItem="4Cp-J5-uTb" secondAttribute="trailing" constant="20" id="2cW-Mi-hRx"/>
+                            <constraint firstItem="FCB-3E-r5Y" firstAttribute="top" secondItem="4Cp-J5-uTb" secondAttribute="bottom" constant="4" id="8Mp-Xj-zwQ"/>
+                            <constraint firstItem="4Cp-J5-uTb" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" constant="20" id="DTT-xH-WgR"/>
+                            <constraint firstItem="btr-yJ-eaj" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="Fik-xC-AIL"/>
+                            <constraint firstItem="4Cp-J5-uTb" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" constant="20" id="UcQ-h6-yUG"/>
+                            <constraint firstItem="FCB-3E-r5Y" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" constant="20" id="WCB-Rb-IBy"/>
+                            <constraint firstItem="btr-yJ-eaj" firstAttribute="top" secondItem="FCB-3E-r5Y" secondAttribute="bottom" constant="5" id="lme-6s-bjk"/>
+                            <constraint firstItem="2BE-c3-nQJ" firstAttribute="trailing" secondItem="FCB-3E-r5Y" secondAttribute="trailing" constant="20" id="yGO-sy-jt9"/>
+                        </constraints>
+                    </view>
+                    <extendedEdge key="edgesForExtendedLayout"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="280"/>
+                    <connections>
+                        <outlet property="friendsImageView" destination="4Cp-J5-uTb" id="7bB-wf-N1j"/>
+                        <outlet property="quizLabel" destination="FCB-3E-r5Y" id="CG4-Kg-7ip"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="79.6875"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="joey" width="128" height="98"/>
+    </resources>
+</document>
