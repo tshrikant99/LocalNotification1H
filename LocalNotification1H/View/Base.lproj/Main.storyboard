@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="U7A-tr-xgT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4aB-kF-1UP">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
@@ -227,6 +227,54 @@
             </objects>
             <point key="canvasLocation" x="1389.8550724637682" y="89.732142857142847"/>
         </scene>
+        <!--FriendsVC-->
+        <scene sceneID="4WM-9p-nXS">
+            <objects>
+                <viewController id="4aB-kF-1UP" customClass="FriendsVC" customModule="LocalNotification1H" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wP7-1X-ZaF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="friends.png" translatesAutoresizingMaskIntoConstraints="NO" id="SG1-xI-40l">
+                                <rect key="frame" x="27" y="84" width="360" height="240"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="360" id="4cE-PR-Oog"/>
+                                    <constraint firstAttribute="height" constant="240" id="Bg5-2s-K6c"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SPQ-YB-Np4">
+                                <rect key="frame" x="127" y="344" width="160" height="60"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="5Ik-Vj-Xw5"/>
+                                    <constraint firstAttribute="width" constant="160" id="Cs7-bt-skS"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Guess the character">
+                                    <fontDescription key="titleFontDescription" type="system" pointSize="20"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="guessCharacter:" destination="4aB-kF-1UP" eventType="touchUpInside" id="0Sx-KV-juW"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="ESh-7O-UWT"/>
+                        <color key="backgroundColor" systemColor="systemGrayColor"/>
+                        <constraints>
+                            <constraint firstItem="SG1-xI-40l" firstAttribute="centerX" secondItem="wP7-1X-ZaF" secondAttribute="centerX" id="GhM-z2-7aw"/>
+                            <constraint firstItem="SG1-xI-40l" firstAttribute="top" secondItem="ESh-7O-UWT" secondAttribute="top" constant="40" id="btr-FE-nj1"/>
+                            <constraint firstItem="SPQ-YB-Np4" firstAttribute="top" secondItem="SG1-xI-40l" secondAttribute="bottom" constant="20" id="gwE-yY-RsM"/>
+                            <constraint firstItem="SPQ-YB-Np4" firstAttribute="centerX" secondItem="wP7-1X-ZaF" secondAttribute="centerX" id="onc-8X-xlf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="friendsImageView" destination="SG1-xI-40l" id="3yu-qn-zWE"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H6f-6R-FVl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2201" y="90"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="u95-Rj-ib6">
             <objects>
@@ -247,8 +295,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="friends.png" width="225" height="225"/>
         <systemColor name="systemBrownColor">
             <color red="0.63529411764705879" green="0.51764705882352946" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGrayColor">
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemTealColor">
             <color red="0.18823529411764706" green="0.69019607843137254" blue="0.7803921568627451" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
