@@ -28,6 +28,7 @@
 		C97CADBE278EFB7D003F9564 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CADBD278EFB7D003F9564 /* PopupVC.swift */; };
 		C9852BA02769D84C005BCC00 /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9852B9F2769D84B005BCC00 /* SecondVC.swift */; };
 		C991E5AD27A032C60096F1C7 /* TVS.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C991E5AC27A032C60096F1C7 /* TVS.mp4 */; };
+		C9BA1BAF27C4EF3500D17586 /* NotificationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA1BAE27C4EF3500D17586 /* NotificationData.swift */; };
 		C9BBE16B27984AB9002978B4 /* PopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBE16A27984AB9002978B4 /* PopupVM.swift */; };
 		C9FE826B27AB845100CEF822 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FE826A27AB845100CEF822 /* UserNotifications.framework */; };
 		C9FE826D27AB845100CEF822 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FE826C27AB845100CEF822 /* UserNotificationsUI.framework */; };
@@ -94,6 +95,7 @@
 		C97CADBD278EFB7D003F9564 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		C9852B9F2769D84B005BCC00 /* SecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
 		C991E5AC27A032C60096F1C7 /* TVS.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = TVS.mp4; sourceTree = "<group>"; };
+		C9BA1BAE27C4EF3500D17586 /* NotificationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationData.swift; sourceTree = "<group>"; };
 		C9BBE16A27984AB9002978B4 /* PopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVM.swift; sourceTree = "<group>"; };
 		C9FE826827AB845100CEF822 /* LocalNotificationContent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LocalNotificationContent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FE826A27AB845100CEF822 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -130,6 +132,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C91CF6AF27C3716A00A08D5A /* Handlers */ = {
+			isa = PBXGroup;
+			children = (
+				C968DFD3276B32B800DF86EE /* NotificationHandler.swift */,
+				9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */,
+				9049B1E027993CF90008F99A /* Helpers.swift */,
+			);
+			path = Handlers;
+			sourceTree = "<group>";
+		};
+		C91CF6B027C3A6B000A08D5A /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		C93AE1F72768A11D00BEF268 = {
 			isa = PBXGroup;
 			children = (
@@ -155,8 +174,10 @@
 			isa = PBXGroup;
 			children = (
 				C9788B5027A98CCC00F9B670 /* LocalNotification1H.entitlements */,
+				C91CF6B027C3A6B000A08D5A /* Model */,
 				C98FB0C62768D38A00CDDC01 /* View */,
 				C98FB0C52768D38500CDDC01 /* Controllers */,
+				C91CF6AF27C3716A00A08D5A /* Handlers */,
 				C98FB0C42768D37F00CDDC01 /* Main */,
 				C93AE20C2768A11F00BEF268 /* Assets.xcassets */,
 				C963BD0327AAB2A9005E6765 /* friends.png */,
@@ -203,9 +224,6 @@
 				C97CADBC278EFB5B003F9564 /* Popup */,
 				C93AE2072768A11D00BEF268 /* NotificationVC.swift */,
 				C9852B9F2769D84B005BCC00 /* SecondVC.swift */,
-				C968DFD3276B32B800DF86EE /* NotificationHandler.swift */,
-				9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */,
-				9049B1E027993CF90008F99A /* Helpers.swift */,
 				C90CF83A278729C0000B704C /* QuestionVC.swift */,
 				C963BD0627AAB384005E6765 /* FriendsVC.swift */,
 			);
@@ -232,6 +250,7 @@
 		C9FE826E27AB845100CEF822 /* LocalNotificationContent */ = {
 			isa = PBXGroup;
 			children = (
+				C9BA1BAE27C4EF3500D17586 /* NotificationData.swift */,
 				C9FE826F27AB845100CEF822 /* NotificationViewController.swift */,
 				C9FE827127AB845100CEF822 /* MainInterface.storyboard */,
 				C9FE827427AB845100CEF822 /* Info.plist */,
@@ -403,6 +422,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9BA1BAF27C4EF3500D17586 /* NotificationData.swift in Sources */,
 				C9FE827027AB845100CEF822 /* NotificationViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

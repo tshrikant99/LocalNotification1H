@@ -9,43 +9,116 @@ import UIKit
 import UserNotifications
 import UserNotificationsUI
 
-class NotificationViewController: UIViewController, UNNotificationContentExtension {
+class NotificationViewController: UIViewController {
 
     @IBOutlet weak var friendsImageView: UIImageView!
     
     @IBOutlet weak var quizLabel: UILabel!
     
+    @IBOutlet var options: [UIButton]!
+    
+    @IBOutlet weak var nextButton: UIButton!
+    
+    let session = URLSession.shared
+    
+    var currentQuiz: NotificationData = .friendsJoeyQuestionData
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any required interface initialization here.
+        
+        loadQuestion(data: currentQuiz)
+    }
+    
+    func loadQuestion(data: NotificationData) {
+     
+        DispatchQueue.main.async {
+            self.quizLabel.text = data.subTitle
+        }
+        
+        DispatchQueue.main.async {
+            for (index, option) in self.options.enumerated() {
+                option.backgroundColor = .gray
+                option.setTitle(data.options[index].title, for: .normal)
+            }
+        }
+        
+        downloadImageFromUrl(url: data.imageUrl) { image in
+            if let image = image {
+                DispatchQueue.main.async {
+                    self.friendsImageView.image = image
+                }
+            }
+        }
     }
     
     @IBAction func onClickNotificationButton(_ sender: UIButton) {
-        print(" Image onClickNotificationButton")
         
-        let session = URLSession.shared
+        friendsImageView.isHidden = false
         
-        if let imageUrl = URL(string: "https://www.filmcompanion.in/wp-content/uploads/2020/08/Film-companion-ross-friends-lead-image-2.jpg") {
+        DispatchQueue.main.async {
+            for opt in self.options {
+                opt.backgroundColor = .gray
+            }
+        }
+        
+        let imageUrl = currentQuiz.options[sender.tag].optionImageUrl
+        
+        var correctAnswerIndex = 0
+
+        for (index, opt) in currentQuiz.options.enumerated() {
+            if opt.isAnswerCorrect {
+                correctAnswerIndex = index
+            }
+        }
+
+        downloadImageFromUrl(url: imageUrl, completion: { image in
+            if let image = image {
+                DispatchQueue.main.async {
+                    self.friendsImageView.image = image
+                }
+            }
+        })
+        
+        DispatchQueue.main.async {
+            self.quizLabel.text = self.currentQuiz.options[sender.tag].answerMessage
+
+            switch sender.tag {
+            case correctAnswerIndex:
+                sender.backgroundColor = .green
+            default:
+                sender.backgroundColor = .red
+            }
+        }
+    }
+    
+    @IBAction func goNextQuestion(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            self.nextButton.isHidden = true
+            self.currentQuiz = .friendsPhoebeQuestionData
+            self.loadQuestion(data: .friendsPhoebeQuestionData)
+        }
+    }
+}
+
+extension NotificationViewController {
+    func downloadImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void ) {
+        if let imageUrl = URL(string: url) {
             session.dataTask(with: URLRequest(url: imageUrl)) { data, response, error in
                 if let data = data {
-                    DispatchQueue.main.async { [weak self] in
-                        self?.friendsImageView.image = UIImage(data: data)
-                    }
-                    
+                    completion(UIImage(data: data))
                 } else {
                     print(" Image not downloaded")
-                    self.friendsImageView.image = UIImage(named: "ross")
+                    completion(nil)
                 }
             }.resume()
         } else {
-            print(" Image not downloaded 2")
-            friendsImageView.image = UIImage(named: "ross")
+            completion(nil)
         }
-        
-        quizLabel.text = "Thats not the right answer, have you watched friends before?"
     }
-    
-    
+}
+
+extension NotificationViewController: UNNotificationContentExtension {
     func didReceive(_ notification: UNNotification) {
         print("didReceive notification")
         quizLabel.text = "Can you guess this character from friends?"
@@ -54,41 +127,5 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         
         print("didReceive response")
-        
-        if response.actionIdentifier == "joey" {
-            friendsImageView.image = UIImage(named: "joey")
-            quizLabel.text = "Yoo. Thats the right answer man!"
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2)) {
-                completion(.dismissAndForwardAction)
-            }
-        } else if response.actionIdentifier == "ross" {
-            
-            let session = URLSession.shared
-            
-            if let imageUrl = URL(string: "https://www.filmcompanion.in/wp-content/uploads/2020/08/Film-companion-ross-friends-lead-image-2.jpg") {
-                session.dataTask(with: URLRequest(url: imageUrl)) { data, response, error in
-                    if let data = data {
-                        DispatchQueue.main.async { [weak self] in
-                            self?.friendsImageView.image = UIImage(data: data)
-                        }
-                        
-                    } else {
-                        print(" Image not downloaded")
-                        self.friendsImageView.image = UIImage(named: "ross")
-                    }
-                }.resume()
-            } else {
-                print(" Image not downloaded 2")
-                friendsImageView.image = UIImage(named: "ross")
-            }
-            
-            quizLabel.text = "Thats not the right answer, have you watched friends before?"
-            completion(.doNotDismiss)
-        } else if response.actionIdentifier == "chandler" {
-            friendsImageView.image = UIImage(named: "chandler")
-            quizLabel.text = "Are you kidding me, please recall your memory!"
-            completion(.doNotDismiss)
-        }
     }
 }

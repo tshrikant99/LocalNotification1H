@@ -180,3 +180,16 @@ extension NotificationHandler {
 //        sendNotificationRequest(content: content, notifyAfter: 2)
     }
 }
+
+
+extension NotificationHandler {
+    static func registerFriendsQuizCategories() {
+        let choice1 = UNNotificationAction(identifier: "ross", title: "Ross", options: .foreground)
+        let choice2 = UNNotificationAction(identifier: "chandler", title: "Chandler", options: .foreground)
+        let choice3 = UNNotificationAction(identifier: "joey", title: "Joey", options: .foreground)
+
+        let friendsCategories  = UNNotificationCategory(identifier: "friendsQuizCategory", actions: [choice1, choice2, choice3], intentIdentifiers: [], options: [])
+
+        UNUserNotificationCenterManager.shared.notificationCenter.setNotificationCategories([friendsCategories])
+    }
+}

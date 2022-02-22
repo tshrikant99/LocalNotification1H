@@ -12,10 +12,10 @@
             <objects>
                 <viewController id="M4Y-Lb-cyx" userLabel="Notification View Controller" customClass="NotificationViewController" customModule="LocalNotificationContent" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" simulatedAppContext="notificationCenter" id="S3S-Oj-5AN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="280"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="450"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="joey" translatesAutoresizingMaskIntoConstraints="NO" id="4Cp-J5-uTb">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="none" translatesAutoresizingMaskIntoConstraints="NO" id="4Cp-J5-uTb">
                                 <rect key="frame" x="20" y="20" width="280" height="180"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="180" id="sWc-F8-S6g"/>
@@ -27,14 +27,59 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btr-yJ-eaj">
-                                <rect key="frame" x="115.5" y="229.5" width="89" height="31"/>
-                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="aeO-th-sa2">
+                                <rect key="frame" x="20" y="232.5" width="280" height="170.5"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="249" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="btr-yJ-eaj">
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="38"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="onClickNotificationButton:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="hFP-PR-5m0"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="24d-o6-KfI">
+                                        <rect key="frame" x="0.0" y="44" width="280" height="38.5"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="onClickNotificationButton:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="xdp-Ab-utZ"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xih-0A-4nN">
+                                        <rect key="frame" x="0.0" y="88.5" width="280" height="38"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="onClickNotificationButton:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="v8x-TR-ACy"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2M2-aF-Yp0">
+                                        <rect key="frame" x="0.0" y="132.5" width="280" height="38"/>
+                                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain"/>
+                                        <connections>
+                                            <action selector="onClickNotificationButton:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="3zH-UC-a7u"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5uW-Ia-lc3">
+                                <rect key="frame" x="131" y="411" width="58" height="31"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Click here"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Next "/>
                                 <connections>
-                                    <action selector="onClickNotificationButton:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="hFP-PR-5m0"/>
+                                    <action selector="goNextQuestion:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="q5F-b8-i0T"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -42,21 +87,30 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="2BE-c3-nQJ" firstAttribute="trailing" secondItem="4Cp-J5-uTb" secondAttribute="trailing" constant="20" id="2cW-Mi-hRx"/>
+                            <constraint firstItem="2BE-c3-nQJ" firstAttribute="bottom" secondItem="5uW-Ia-lc3" secondAttribute="bottom" constant="8" id="3zn-NR-Msb"/>
                             <constraint firstItem="FCB-3E-r5Y" firstAttribute="top" secondItem="4Cp-J5-uTb" secondAttribute="bottom" constant="4" id="8Mp-Xj-zwQ"/>
                             <constraint firstItem="4Cp-J5-uTb" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" constant="20" id="DTT-xH-WgR"/>
-                            <constraint firstItem="btr-yJ-eaj" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="Fik-xC-AIL"/>
+                            <constraint firstItem="aeO-th-sa2" firstAttribute="trailing" secondItem="FCB-3E-r5Y" secondAttribute="trailing" id="DUp-9g-fOo"/>
+                            <constraint firstItem="aeO-th-sa2" firstAttribute="leading" secondItem="FCB-3E-r5Y" secondAttribute="leading" id="RnI-oz-Yyf"/>
                             <constraint firstItem="4Cp-J5-uTb" firstAttribute="top" secondItem="S3S-Oj-5AN" secondAttribute="top" constant="20" id="UcQ-h6-yUG"/>
                             <constraint firstItem="FCB-3E-r5Y" firstAttribute="leading" secondItem="2BE-c3-nQJ" secondAttribute="leading" constant="20" id="WCB-Rb-IBy"/>
-                            <constraint firstItem="btr-yJ-eaj" firstAttribute="top" secondItem="FCB-3E-r5Y" secondAttribute="bottom" constant="5" id="lme-6s-bjk"/>
+                            <constraint firstItem="5uW-Ia-lc3" firstAttribute="top" secondItem="aeO-th-sa2" secondAttribute="bottom" constant="8" id="ZiD-td-DPe"/>
+                            <constraint firstItem="5uW-Ia-lc3" firstAttribute="centerX" secondItem="S3S-Oj-5AN" secondAttribute="centerX" id="Zph-js-2JZ"/>
+                            <constraint firstItem="aeO-th-sa2" firstAttribute="top" secondItem="FCB-3E-r5Y" secondAttribute="bottom" constant="8" id="knx-w4-ox0"/>
                             <constraint firstItem="2BE-c3-nQJ" firstAttribute="trailing" secondItem="FCB-3E-r5Y" secondAttribute="trailing" constant="20" id="yGO-sy-jt9"/>
                         </constraints>
                     </view>
                     <extendedEdge key="edgesForExtendedLayout"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="280"/>
+                    <size key="freeformSize" width="320" height="450"/>
                     <connections>
                         <outlet property="friendsImageView" destination="4Cp-J5-uTb" id="7bB-wf-N1j"/>
+                        <outlet property="nextButton" destination="5uW-Ia-lc3" id="VlC-rg-Gia"/>
                         <outlet property="quizLabel" destination="FCB-3E-r5Y" id="CG4-Kg-7ip"/>
+                        <outletCollection property="options" destination="btr-yJ-eaj" collectionClass="NSMutableArray" id="MXW-yn-J44"/>
+                        <outletCollection property="options" destination="24d-o6-KfI" collectionClass="NSMutableArray" id="IRO-uw-3kp"/>
+                        <outletCollection property="options" destination="Xih-0A-4nN" collectionClass="NSMutableArray" id="Svf-5x-WMq"/>
+                        <outletCollection property="options" destination="2M2-aF-Yp0" collectionClass="NSMutableArray" id="4f7-TJ-twf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -65,6 +119,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="joey" width="128" height="98"/>
+        <image name="none" width="128" height="128"/>
     </resources>
 </document>

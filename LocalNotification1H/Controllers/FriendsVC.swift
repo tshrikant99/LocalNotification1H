@@ -30,7 +30,7 @@ class FriendsVC: UIViewController {
         
         friendsNotificationContent.categoryIdentifier = categoryIdentifier
         
-        let request = UNNotificationRequest(identifier: reuestIdentifier, content: friendsNotificationContent, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 6, repeats: false))
+        let request = UNNotificationRequest(identifier: reuestIdentifier, content: friendsNotificationContent, trigger: UNTimeIntervalNotificationTrigger(timeInterval: 4, repeats: false))
         
         UNUserNotificationCenter.current().add(request) { err in
             if let error = err {

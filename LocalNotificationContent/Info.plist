@@ -6,10 +6,12 @@
 	<dict>
 		<key>NSExtensionAttributes</key>
 		<dict>
+			<key>UNNotificationExtensionUserInteractionEnabled</key>
+			<true/>
 			<key>UNNotificationExtensionCategory</key>
 			<string>friendsQuizCategory</string>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
-			<real>0.6</real>
+			<integer>1</integer>
 		</dict>
 		<key>NSExtensionMainStoryboard</key>
 		<string>MainInterface</string>
