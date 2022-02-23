@@ -109,6 +109,15 @@ extension NotificationHandler {
         }
     }
     
+    //TODO: schedule MCQ question [Question]
+    static func scheduleMCQNotification(for game: Game) {
+        let content = UNMutableNotificationContent()
+        content.categoryIdentifier = UNNotificationCategory.CustomKeys.mcq.rawValue
+        content.title = game.title
+        content.userInfo = ["data": try! JSONEncoder().encode(game)]
+        
+        sendNotificationRequest(content: content, notifyAfter: 4)
+    }
 }
 
 extension NotificationHandler {

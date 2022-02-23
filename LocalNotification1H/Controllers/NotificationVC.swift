@@ -44,6 +44,7 @@ extension UNNotificationCategory {
     enum CustomKeys: String {
         case contest
         case question
+        case mcq
     }
     
 }

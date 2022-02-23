@@ -49,3 +49,18 @@ func downloadImage(type: DownloadType , from url: URL, directory: FileManager.Se
     }
     .resume()
 }
+
+func getImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void ) {
+    if let imageUrl = URL(string: url) {
+        URLSession.shared.dataTask(with: URLRequest(url: imageUrl)) { data, response, error in
+            if let data = data {
+                completion(UIImage(data: data))
+            } else {
+                print(" Image not downloaded")
+                completion(nil)
+            }
+        }.resume()
+    } else {
+        completion(nil)
+    }
+}

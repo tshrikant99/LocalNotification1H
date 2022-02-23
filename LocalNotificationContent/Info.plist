@@ -9,7 +9,7 @@
 			<key>UNNotificationExtensionUserInteractionEnabled</key>
 			<true/>
 			<key>UNNotificationExtensionCategory</key>
-			<string>friendsQuizCategory</string>
+			<string>mcq</string>
 			<key>UNNotificationExtensionInitialContentSizeRatio</key>
 			<integer>1</integer>
 		</dict>

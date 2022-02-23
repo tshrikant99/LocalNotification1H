@@ -19,42 +19,50 @@ class NotificationViewController: UIViewController {
     
     @IBOutlet weak var nextButton: UIButton!
     
-    let session = URLSession.shared
+    var game: Game = Game(title: "", questions: [])
+    var currentQuiz: Question = Question(title: "", answers: [])
     
-    var currentQuiz: NotificationData = .friendsJoeyQuestionData
+    var gameLevel: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any required interface initialization here.
-        
-        loadQuestion(data: currentQuiz)
     }
     
-    func loadQuestion(data: NotificationData) {
-     
+    func loadGame() {
+        
+        currentQuiz = game.questions[gameLevel]
+        
         DispatchQueue.main.async {
-            self.quizLabel.text = data.subTitle
+            self.quizLabel.text = self.currentQuiz.title
         }
         
         DispatchQueue.main.async {
             for (index, option) in self.options.enumerated() {
                 option.backgroundColor = .gray
-                option.setTitle(data.options[index].title, for: .normal)
+                option.setTitle(self.currentQuiz.answers[index].value, for: .normal)
             }
         }
         
-        downloadImageFromUrl(url: data.imageUrl) { image in
-            if let image = image {
-                DispatchQueue.main.async {
-                    self.friendsImageView.image = image
+        if let imageUrl = currentQuiz.imageURL {
+            getImageFromUrl(url: imageUrl) { image in
+                if let image = image {
+                    DispatchQueue.main.async {
+                        self.friendsImageView.image = image
+                    }
                 }
             }
         }
     }
     
     @IBAction func onClickNotificationButton(_ sender: UIButton) {
-        
-        friendsImageView.isHidden = false
+        var correctAnswerIndex = 0
+
+        for (index, opt) in currentQuiz.answers.enumerated() {
+            if opt.isCorrect {
+                correctAnswerIndex = index
+            }
+        }
         
         DispatchQueue.main.async {
             for opt in self.options {
@@ -62,27 +70,7 @@ class NotificationViewController: UIViewController {
             }
         }
         
-        let imageUrl = currentQuiz.options[sender.tag].optionImageUrl
-        
-        var correctAnswerIndex = 0
-
-        for (index, opt) in currentQuiz.options.enumerated() {
-            if opt.isAnswerCorrect {
-                correctAnswerIndex = index
-            }
-        }
-
-        downloadImageFromUrl(url: imageUrl, completion: { image in
-            if let image = image {
-                DispatchQueue.main.async {
-                    self.friendsImageView.image = image
-                }
-            }
-        })
-        
         DispatchQueue.main.async {
-            self.quizLabel.text = self.currentQuiz.options[sender.tag].answerMessage
-
             switch sender.tag {
             case correctAnswerIndex:
                 sender.backgroundColor = .green
@@ -92,40 +80,36 @@ class NotificationViewController: UIViewController {
         }
     }
     
-    @IBAction func goNextQuestion(_ sender: UIButton) {
-        DispatchQueue.main.async {
+    func loadNextQuiz() {
+        if gameLevel < game.questions.count-1 {
+            gameLevel += 1
+            loadGame()
+        } else {
             self.nextButton.isHidden = true
-            self.currentQuiz = .friendsPhoebeQuestionData
-            self.loadQuestion(data: .friendsPhoebeQuestionData)
         }
     }
-}
-
-extension NotificationViewController {
-    func downloadImageFromUrl(url: String, completion: @escaping (UIImage?) -> Void ) {
-        if let imageUrl = URL(string: url) {
-            session.dataTask(with: URLRequest(url: imageUrl)) { data, response, error in
-                if let data = data {
-                    completion(UIImage(data: data))
-                } else {
-                    print(" Image not downloaded")
-                    completion(nil)
-                }
-            }.resume()
-        } else {
-            completion(nil)
-        }
+    
+    @IBAction func goNextQuestion(_ sender: UIButton) {
+        loadNextQuiz()
     }
 }
 
 extension NotificationViewController: UNNotificationContentExtension {
     func didReceive(_ notification: UNNotification) {
-        print("didReceive notification")
-        quizLabel.text = "Can you guess this character from friends?"
+        do {
+            let gameData = notification.request.content.userInfo["data"] as! Data
+            let game = try JSONDecoder().decode(Game.self, from: gameData)
+            
+            self.game = game
+            loadGame()
+        } catch {
+            print(error.localizedDescription)
+        }
+        
     }
 
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         
-        print("didReceive response")
+        completion(.doNotDismiss)
     }
 }
