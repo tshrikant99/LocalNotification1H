@@ -116,7 +116,7 @@ extension NotificationHandler {
         content.title = game.title
         content.userInfo = ["data": try! JSONEncoder().encode(game)]
         
-        sendNotificationRequest(content: content, notifyAfter: 4)
+        sendNotificationRequest(content: content, notifyAfter: 1)
     }
 }
 

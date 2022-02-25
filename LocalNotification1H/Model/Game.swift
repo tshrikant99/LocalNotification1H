@@ -79,15 +79,22 @@ extension Question {
 }
 
 extension Game {
-    static var friendsGame: Self {.init(title: "Friends Quiz", questions: [.init(title: "Do you know him?",
-                                                                                     answers: [.init(value: "Ross", isCorrect: false),
-                                                                                               .init(value: "Chandler", isCorrect: false),
-                                                                                               .init(value: "Joey", isCorrect: true),
-                                                                                               .init(value: "None", isCorrect: false)], imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuB9CxUmQrZGljwWQj539W-AnBuc71XU-pxA&usqp=CAU.jpg"),
-                                                                               .init(title: "Who's this girl?",
-                                                                                     answers: [.init(value: "Monika", isCorrect: false),
-                                                                                .init(value: "Phoebe", isCorrect: true),
-                                                                                .init(value: "Rachel", isCorrect: false),
-                                                                                .init(value: "Dont know", isCorrect: false)],
-                                                                                     imageURL: "https://cdn.onebauer.media/one/media/601c/13ba/a71b/7967/074a/deb1/Phoebe2.png?format=jpg&quality=80&width=440&ratio=16-9&resize=aspectfill.jpg")])}
+    static var friendsGame: Self { .init(title: "Friends Quiz",
+                                         questions: [
+                                            .init(title: "Do you know him?",
+                                                  answers: [.init(value: "Ross", isCorrect: false),
+                                                            .init(value: "Chandler", isCorrect: false),
+                                                            .init(value: "Joey", isCorrect: true),
+                                                            .init(value: "None", isCorrect: false)], imageURL: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQuB9CxUmQrZGljwWQj539W-AnBuc71XU-pxA&usqp=CAU.jpg"),
+                                            
+                                                .init(title: "Ross studies dinosaurs?",
+                                                      answers: [.init(value: "Yes", isCorrect: true),
+                                                                .init(value: "No", isCorrect: false)]),
+                                            
+                                                .init(title: "Who's this girl?",
+                                                      answers: [.init(value: "Monika", isCorrect: false),
+                                                                .init(value: "Phoebe", isCorrect: true),
+                                                                .init(value: "Rachel", isCorrect: false),
+                                                                .init(value: "Dont know", isCorrect: false)],
+                                                      imageURL: "https://cdn.onebauer.media/one/media/601c/13ba/a71b/7967/074a/deb1/Phoebe2.png?format=jpg&quality=80&width=440&ratio=16-9&resize=aspectfill.jpg")])}
 }
