@@ -21,11 +21,13 @@ class NotificationVC: UIViewController {
     }
     
     @IBAction func showGifNotification(_ sender: UIButton) {
-        NotificationHandler.showGifNotification()
+        let gifURL = "https://i.pinimg.com/originals/fe/df/71/fedf7125acf620e856b6d09ef44eee51.gif"
+        NotificationHandler.showGifNotification(gifURL: gifURL)
     }
     
     @IBAction func showVideoNotificaion(_ sender: UIButton) {
-        NotificationHandler.showVideoNotification()
+        let videoUrlString = "https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4"
+        NotificationHandler.showVideoNotification(videoUrlString: videoUrlString)
     }
     
     @IBAction func showQuestionPage(_ sender: Any) {

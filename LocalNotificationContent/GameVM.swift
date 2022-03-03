@@ -22,7 +22,7 @@ class GameVM {
     var gameDidComplete: VoidHandler?
     
     var question: Question { game.questions[questionIndex] }
-    var nextButtonText: String { questionIndex < game.questions.count - 1 ? "Next" : "Done"}
+    var nextButtonText: String { questionIndex < game.questions.count - 1 ? "NEXT" : "DONE"}
     
     func setGame(data: Data) {
         do {

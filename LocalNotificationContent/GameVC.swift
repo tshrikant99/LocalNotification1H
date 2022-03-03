@@ -56,9 +56,6 @@ class GameVC: UIViewController {
     }
     
     func setupUI() {
-        nextButton.layer.cornerRadius = 10
-        nextButton.layer.masksToBounds = true
-        
         for element in optionElements {
             element.view?.addShadow()
             element.view?.layer.masksToBounds = false
@@ -104,7 +101,8 @@ class GameVC: UIViewController {
                 incorrectOption.label?.textColor = .white
             }
 
-            self.nextButton.isHidden = false
+            self.nextButton.tintColor = .blue
+            self.nextButton.isUserInteractionEnabled = true
         }
         
         viewModel.gameDidComplete = { [weak self] in
@@ -170,7 +168,8 @@ extension GameVC {
         self.quizLabel.text = self.viewModel.question.title
         
         self.nextButton.setTitle(self.viewModel.nextButtonText, for: .normal)
-        self.nextButton.isHidden = true
+        self.nextButton.tintColor = .gray
+        self.nextButton.isUserInteractionEnabled = false
     }
     
     func resetAnswerOptions() {

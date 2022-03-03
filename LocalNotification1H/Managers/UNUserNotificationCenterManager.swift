@@ -23,11 +23,9 @@ class UNUserNotificationCenterManager: NSObject {
         notificationCenter.requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
             if let error = error {
                 print("Error in request authorize \(error.localizedDescription)")
+            } else {
+                NotificationHandler.registerCategoryActions()
             }
-//            else {
-//                NotificationHandler.registerCategoryActions()
-//                NotificationHandler.registerFriendsQuizCategories()
-//            }
         }
     }
     
