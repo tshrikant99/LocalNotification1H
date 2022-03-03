@@ -14,9 +14,6 @@ class NotificationVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        
-        notifyButton.titleLabel?.text = "Notify after 8 sec"
     }
     
     @IBAction func onNotifyPressed(_ sender: UIButton) {
@@ -31,11 +28,8 @@ class NotificationVC: UIViewController {
         NotificationHandler.showVideoNotification()
     }
     
-    
     @IBAction func showQuestionPage(_ sender: Any) {
-        let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "QuestionVC") as! QuestionVC
-        vc.question = [.aExample, .bExample, .cExample, .dExample, .eExample].randomElement()!
-        navigationController?.pushViewController(vc, animated: true)
+        NotificationHandler.scheduleMCQNotification(for: .aExample)
     }
 }
 

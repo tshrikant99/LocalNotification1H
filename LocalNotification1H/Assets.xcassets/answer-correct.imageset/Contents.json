@@ -1,12 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "xxxhdpi.png",
+      "filename" : "Rightmark_96x96.png",
       "idiom" : "universal"
     }
   ],
   "info" : {
     "author" : "xcode",
     "version" : 1
+  },
+  "properties" : {
+    "template-rendering-intent" : "template"
   }
 }

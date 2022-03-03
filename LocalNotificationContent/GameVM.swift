@@ -34,8 +34,7 @@ class GameVM {
     }
     
     func didSelectAnswer(at index: Int) {
-        let correctIndex = question.answers.firstIndex { $0.isCorrect }!
-        answerSelected?(index, correctIndex)
+        answerSelected?(index, question.correctIndex - 1)
     }
     
     func next() {

@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "checkmark_empty_circle.pdf",
+      "filename" : "wrongmark_96x96.png",
       "idiom" : "universal"
     }
   ],
@@ -10,6 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true
+    "template-rendering-intent" : "template"
   }
 }

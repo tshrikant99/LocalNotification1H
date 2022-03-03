@@ -10,14 +10,38 @@ import UserNotifications
 import UserNotificationsUI
 import Lottie
 
+struct AnswerOptionElements {
+    weak var view: UIView?
+    weak var label: UILabel?
+    weak var imageView: UIImageView?
+}
+
 class GameVC: UIViewController {
     @IBOutlet weak var friendsImageView: UIImageView!
     @IBOutlet weak var quizLabel: UILabel!
     
-    @IBOutlet var optionButtons: [UIButton]!
-    @IBOutlet var optionViews: [UIView]!
-    @IBOutlet var optionLabels: [UILabel]!
-    @IBOutlet var optionImageViews: [UIImageView]!
+    @IBOutlet var optionView1: UIView!
+    @IBOutlet var optionView2: UIView!
+    @IBOutlet var optionView3: UIView!
+    @IBOutlet var optionView4: UIView!
+    
+    @IBOutlet var optionTitleLabel1: UILabel!
+    @IBOutlet var optionTitleLabel2: UILabel!
+    @IBOutlet var optionTitleLabel3: UILabel!
+    @IBOutlet var optionTitleLabel4: UILabel!
+    
+    @IBOutlet var optionImageView1: UIImageView!
+    @IBOutlet var optionImageView2: UIImageView!
+    @IBOutlet var optionImageView3: UIImageView!
+    @IBOutlet var optionImageView4: UIImageView!
+    
+    var optionElements: [AnswerOptionElements] {
+        [.init(view: optionView1, label: optionTitleLabel1, imageView: optionImageView1),
+         .init(view: optionView2, label: optionTitleLabel2, imageView: optionImageView2),
+         .init(view: optionView3, label: optionTitleLabel3, imageView: optionImageView3),
+         .init(view: optionView4, label: optionTitleLabel4, imageView: optionImageView4)
+        ]
+    }
     
     @IBOutlet weak var nextButton: UIButton!
     
@@ -27,7 +51,6 @@ class GameVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any required interface initialization here.
         setupUI()
         setupObservers()
     }
@@ -36,10 +59,10 @@ class GameVC: UIViewController {
         nextButton.layer.cornerRadius = 10
         nextButton.layer.masksToBounds = true
         
-        for view in optionViews {
-            view.addShadow()
-            view.layer.masksToBounds = false
-            view.addCornerRadius()
+        for element in optionElements {
+            element.view?.addShadow()
+            element.view?.layer.masksToBounds = false
+            element.view?.addCornerRadius()
         }
     }
     
@@ -47,77 +70,40 @@ class GameVC: UIViewController {
         viewModel.questionDidUpdate = { [weak self] in
             guard let self = self else { return }
             
-            self.quizLabel.text = self.viewModel.question.title
-            self.nextButton.setTitle(self.viewModel.nextButtonText, for: .normal)
-            self.nextButton.isHidden = true
-            
-            self.optionButtons.forEach {
-                $0.alpha = 0
-                $0.isEnabled = false
-            }
-            
-            self.optionViews.forEach {
-                $0.alpha = 0
-            }
-            
-            self.optionLabels.forEach {
-                $0.text = ""
-                $0.textColor = .black
-            }
-            self.optionImageViews.forEach { $0.isHidden = true }
-            
-            for (index, answerOption) in self.viewModel.question.answers.enumerated() {
-                let button = self.optionButtons[index]
-
-                button.alpha = 1
-                button.isEnabled = true
-                button.backgroundColor = .white
-                button.setTitleColor(.black, for: .normal)
-                //button.setTitle(answerOption.value, for: .normal)
-                
-                self.optionLabels[index].text = answerOption.value
-                
-                self.optionViews[index].alpha = 1
-            }
-            
-            if let imageURL = self.viewModel.question.imageURL {
-                getImageFromUrl(url: imageURL) { image in
-                    DispatchQueue.main.async {
-                        self.imageHeightConstraint.constant = 180
-                        self.friendsImageView.image = image
-                    }
-                }
-            } else {
-                self.imageHeightConstraint.constant = 0
-                self.friendsImageView.image = nil
-            }
-            
+            self.updateQuestionContent()
+            self.updateAnswerOptions()
+            self.updateQuestionImage()
         }
         
         viewModel.answerSelected = { [weak self] (userIndex, correctIndex) in
             guard let self = self else { return }
             
-            self.optionButtons[correctIndex].backgroundColor = #colorLiteral(red: 0.4666666687, green: 0.7647058964, blue: 0.2666666806, alpha: 1)
-            self.optionButtons[correctIndex].setTitleColor(.white, for: .normal)
-
-            self.optionImageViews[correctIndex].image = #imageLiteral(resourceName: "checkmark-plain")
-            self.optionImageViews[correctIndex].isHidden = false
-            self.optionImageViews[correctIndex].tintColor = .white
+            self.optionElements.forEach {
+                $0.view?.isUserInteractionEnabled = false
+            }
             
-            self.optionLabels[correctIndex].textColor = .white
+            let correctOption = self.optionElements[correctIndex]
+            correctOption.view?.backgroundColor = .green
+            correctOption.label?.textColor = .white
+
+            correctOption.imageView?.image = UIImage(named: "answer-correct")
+            correctOption.imageView?.isHidden = false
+            correctOption.imageView?.tintColor = .white
+            
+            correctOption.label?.textColor = .white
             
             if userIndex != correctIndex {
-                self.optionButtons[userIndex].backgroundColor = #colorLiteral(red: 0.9254902005, green: 0.2352941185, blue: 0.1019607857, alpha: 1)
-                self.optionButtons[userIndex].setTitleColor(.white, for: .normal)
+                let incorrectOption = self.optionElements[userIndex]
+                incorrectOption.view?.backgroundColor = .red
+                incorrectOption.label?.textColor = .white
                 
-                self.optionImageViews[userIndex].image = #imageLiteral(resourceName: "close")
-                self.optionImageViews[userIndex].tintColor = .white
-                self.optionImageViews[userIndex].isHidden = false
+                incorrectOption.imageView?.image = UIImage(named: "answer-incorrect")
+                incorrectOption.imageView?.tintColor = .white
+                incorrectOption.imageView?.isHidden = false
                 
-                self.optionLabels[userIndex].textColor = .white
+                incorrectOption.label?.textColor = .white
             }
 
-            self.optionButtons.forEach { $0.isEnabled = false }
             self.nextButton.isHidden = false
         }
         
@@ -125,20 +111,31 @@ class GameVC: UIViewController {
             guard let self = self else { return }
             
             let vc = UIViewController()
-
             vc.view.backgroundColor = .white
-            vc.modalPresentationStyle = .custom
 
             let animationView = AnimationView(name: "animation-congrats")
-            animationView.frame = CGRect(x: 0, y: 0, width: 200, height: 200)
-            animationView.center = vc.view.center
             animationView.contentMode = .scaleToFill
             animationView.backgroundBehavior = .pauseAndRestore
-
+            animationView.loopMode = .loop
+            
+            animationView.translatesAutoresizingMaskIntoConstraints = false
             vc.view.addSubview(animationView)
-            animationView.play()
-
+            
+            NSLayoutConstraint.activate([
+                animationView.centerXAnchor.constraint(equalTo: vc.view.centerXAnchor),
+                animationView.centerYAnchor.constraint(equalTo: vc.view.centerYAnchor),
+                animationView.heightAnchor.constraint(equalToConstant: 256),
+                animationView.widthAnchor.constraint(equalToConstant: 256)
+            ])
+            
+            vc.modalPresentationStyle = .custom
             self.present(vc, animated: false)
+            
+            animationView.play()
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                self.extensionContext?.dismissNotificationContentExtension()
+            }
         }
         
         viewModel.errorHandler = {
@@ -165,5 +162,53 @@ extension GameVC: UNNotificationContentExtension {
 
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         completion(.doNotDismiss)
+    }
+}
+
+extension GameVC {
+    func updateQuestionContent() {
+        self.quizLabel.text = self.viewModel.question.title
+        
+        self.nextButton.setTitle(self.viewModel.nextButtonText, for: .normal)
+        self.nextButton.isHidden = true
+    }
+    
+    func resetAnswerOptions() {
+        (0..<self.optionElements.count).forEach { (index) in
+            self.optionElements[index].view?.isHidden = true
+            
+            self.optionElements[index].label?.text = nil
+            self.optionElements[index].label?.textColor = .black
+            
+            self.optionElements[index].imageView?.isHidden = true
+        }
+    }
+    
+    func updateAnswerOptions() {
+        resetAnswerOptions()
+        
+        for (index, answerOption) in self.viewModel.question.answerOptions.enumerated() {
+            self.optionElements[index].view?.isUserInteractionEnabled = true
+            self.optionElements[index].view?.isHidden = false
+            self.optionElements[index].view?.backgroundColor = .white
+            
+            self.optionElements[index].label?.text = answerOption
+            self.optionElements[index].label?.textColor = .black
+        }
+    }
+    
+    func updateQuestionImage() {
+        self.friendsImageView.image = nil
+        if let imageURL = self.viewModel.question.imageURL {
+            getImageFromUrl(url: imageURL) { image in
+                DispatchQueue.main.async {
+                    self.imageHeightConstraint.constant = 180
+                    self.friendsImageView.image = image
+                }
+            }
+        } else {
+            self.imageHeightConstraint.constant = 0
+            self.friendsImageView.image = nil
+        }
     }
 }

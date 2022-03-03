@@ -10,11 +10,8 @@
 		1951A744A895A436A5695744 /* Pods_LocalNotification1H.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A9D76441ECABC16636ECDF /* Pods_LocalNotification1H.framework */; };
 		9049B1E127993CF90008F99A /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E027993CF90008F99A /* Helpers.swift */; };
 		9049B1E327993D660008F99A /* UNUserNotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */; };
-		9049B1E5279941130008F99A /* PopupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9049B1E4279941130008F99A /* PopupVC.xib */; };
 		A18D4EB0888E878EB897D98E /* Pods_LocalNotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F270384ABF4CF39B61BEC5 /* Pods_LocalNotificationService.framework */; };
-		C90CF83B278729C0000B704C /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CF83A278729C0000B704C /* QuestionVC.swift */; };
 		C9296C6227CF4EB9007A7704 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9296C6127CF4EB9007A7704 /* UIViewExtension.swift */; };
-		C93A052A279FC1C200AB7884 /* error-wait.gif in Resources */ = {isa = PBXBuildFile; fileRef = C93A0529279FC1C200AB7884 /* error-wait.gif */; };
 		C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2032768A11D00BEF268 /* AppDelegate.swift */; };
 		C93AE2062768A11D00BEF268 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2052768A11D00BEF268 /* SceneDelegate.swift */; };
 		C93AE2082768A11D00BEF268 /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2072768A11D00BEF268 /* NotificationVC.swift */; };
@@ -22,26 +19,16 @@
 		C93AE20D2768A11F00BEF268 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C93AE20C2768A11F00BEF268 /* Assets.xcassets */; };
 		C93AE2102768A11F00BEF268 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93AE20E2768A11F00BEF268 /* LaunchScreen.storyboard */; };
 		C9564C7C27C8DEF6002331BC /* GameVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9564C7B27C8DEF6002331BC /* GameVM.swift */; };
-		C963BD0427AAB2A9005E6765 /* friends.png in Resources */ = {isa = PBXBuildFile; fileRef = C963BD0327AAB2A9005E6765 /* friends.png */; };
-		C963BD0527AAB2A9005E6765 /* friends.png in Resources */ = {isa = PBXBuildFile; fileRef = C963BD0327AAB2A9005E6765 /* friends.png */; };
-		C963BD0727AAB384005E6765 /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C963BD0627AAB384005E6765 /* FriendsVC.swift */; };
 		C968DFD4276B32B800DF86EE /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968DFD3276B32B800DF86EE /* NotificationHandler.swift */; };
 		C9788B4727A98BE800F9B670 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9788B4627A98BE800F9B670 /* NotificationService.swift */; };
 		C9788B4B27A98BE800F9B670 /* LocalNotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = C9788B4427A98BE800F9B670 /* LocalNotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		C97CADBE278EFB7D003F9564 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CADBD278EFB7D003F9564 /* PopupVC.swift */; };
-		C9852BA02769D84C005BCC00 /* SecondVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9852B9F2769D84B005BCC00 /* SecondVC.swift */; };
 		C991E5AD27A032C60096F1C7 /* TVS.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = C991E5AC27A032C60096F1C7 /* TVS.mp4 */; };
 		C9BA1BAF27C4EF3500D17586 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA1BAE27C4EF3500D17586 /* Game.swift */; };
-		C9BBE16B27984AB9002978B4 /* PopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBE16A27984AB9002978B4 /* PopupVM.swift */; };
 		C9D5315B27CCAEA900360D9D /* animation-congrats.json in Resources */ = {isa = PBXBuildFile; fileRef = C9D5315A27CCAEA900360D9D /* animation-congrats.json */; };
 		C9E6219427C6061D007E1E0F /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA1BAE27C4EF3500D17586 /* Game.swift */; };
 		C9E6219527C6542B007E1E0F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E027993CF90008F99A /* Helpers.swift */; };
 		C9E6219727C65669007E1E0F /* UNUserNotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */; };
 		C9E6219827C6569E007E1E0F /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2072768A11D00BEF268 /* NotificationVC.swift */; };
-		C9E6219927C656A7007E1E0F /* QuestionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C90CF83A278729C0000B704C /* QuestionVC.swift */; };
-		C9E6219A27C656AC007E1E0F /* FriendsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C963BD0627AAB384005E6765 /* FriendsVC.swift */; };
-		C9E6219B27C656C9007E1E0F /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CADBD278EFB7D003F9564 /* PopupVC.swift */; };
-		C9E6219C27C656CB007E1E0F /* PopupVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BBE16A27984AB9002978B4 /* PopupVM.swift */; };
 		C9E6219D27C656D5007E1E0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93AE2092768A11D00BEF268 /* Main.storyboard */; };
 		C9FD345B27C67AE20021C1AA /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968DFD3276B32B800DF86EE /* NotificationHandler.swift */; };
 		C9FE826B27AB845100CEF822 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FE826A27AB845100CEF822 /* UserNotifications.framework */; };
@@ -94,13 +81,10 @@
 		7F3E376E30F6E729E879615A /* Pods-LocalNotificationService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalNotificationService.release.xcconfig"; path = "Target Support Files/Pods-LocalNotificationService/Pods-LocalNotificationService.release.xcconfig"; sourceTree = "<group>"; };
 		9049B1E027993CF90008F99A /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UNUserNotificationCenterManager.swift; sourceTree = "<group>"; };
-		9049B1E4279941130008F99A /* PopupVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PopupVC.xib; sourceTree = "<group>"; };
 		9C49985CEBFD08AD653C1189 /* Pods_LocalNotificationContent.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LocalNotificationContent.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2BB6A1C2A40AAF274B690B4 /* Pods-LocalNotificationContent.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalNotificationContent.release.xcconfig"; path = "Target Support Files/Pods-LocalNotificationContent/Pods-LocalNotificationContent.release.xcconfig"; sourceTree = "<group>"; };
 		A91D815D0D19AE136CBAEA3A /* Pods-LocalNotificationContent.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LocalNotificationContent.debug.xcconfig"; path = "Target Support Files/Pods-LocalNotificationContent/Pods-LocalNotificationContent.debug.xcconfig"; sourceTree = "<group>"; };
-		C90CF83A278729C0000B704C /* QuestionVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionVC.swift; sourceTree = "<group>"; };
 		C9296C6127CF4EB9007A7704 /* UIViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtension.swift; sourceTree = "<group>"; };
-		C93A0529279FC1C200AB7884 /* error-wait.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = "error-wait.gif"; sourceTree = "<group>"; };
 		C93AE2002768A11D00BEF268 /* LocalNotification1H.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocalNotification1H.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C93AE2032768A11D00BEF268 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C93AE2052768A11D00BEF268 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,19 +94,14 @@
 		C93AE20F2768A11F00BEF268 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C93AE2112768A11F00BEF268 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9564C7B27C8DEF6002331BC /* GameVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameVM.swift; sourceTree = "<group>"; };
-		C963BD0327AAB2A9005E6765 /* friends.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = friends.png; sourceTree = "<group>"; };
-		C963BD0627AAB384005E6765 /* FriendsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsVC.swift; sourceTree = "<group>"; };
 		C968DFD3276B32B800DF86EE /* NotificationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHandler.swift; sourceTree = "<group>"; };
 		C9788B4427A98BE800F9B670 /* LocalNotificationService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LocalNotificationService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9788B4627A98BE800F9B670 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		C9788B4827A98BE800F9B670 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9788B5027A98CCC00F9B670 /* LocalNotification1H.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalNotification1H.entitlements; sourceTree = "<group>"; };
 		C9788B5127A98DBD00F9B670 /* LocalNotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LocalNotificationService.entitlements; sourceTree = "<group>"; };
-		C97CADBD278EFB7D003F9564 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
-		C9852B9F2769D84B005BCC00 /* SecondVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondVC.swift; sourceTree = "<group>"; };
 		C991E5AC27A032C60096F1C7 /* TVS.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = TVS.mp4; sourceTree = "<group>"; };
 		C9BA1BAE27C4EF3500D17586 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
-		C9BBE16A27984AB9002978B4 /* PopupVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVM.swift; sourceTree = "<group>"; };
 		C9D5315A27CCAEA900360D9D /* animation-congrats.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "animation-congrats.json"; sourceTree = "<group>"; };
 		C9FE826827AB845100CEF822 /* LocalNotificationContent.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = LocalNotificationContent.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9FE826A27AB845100CEF822 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -175,14 +154,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		C91CF6AF27C3716A00A08D5A /* Handlers */ = {
+		C91CF6AF27C3716A00A08D5A /* Managers */ = {
 			isa = PBXGroup;
 			children = (
 				C968DFD3276B32B800DF86EE /* NotificationHandler.swift */,
 				9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */,
 				9049B1E027993CF90008F99A /* Helpers.swift */,
 			);
-			path = Handlers;
+			path = Managers;
 			sourceTree = "<group>";
 		};
 		C91CF6B027C3A6B000A08D5A /* Model */ = {
@@ -220,14 +199,11 @@
 			children = (
 				C9788B5027A98CCC00F9B670 /* LocalNotification1H.entitlements */,
 				C91CF6B027C3A6B000A08D5A /* Model */,
-				C98FB0C62768D38A00CDDC01 /* View */,
-				C98FB0C52768D38500CDDC01 /* Controllers */,
-				C91CF6AF27C3716A00A08D5A /* Handlers */,
+				C98FB0C52768D38500CDDC01 /* Views */,
+				C91CF6AF27C3716A00A08D5A /* Managers */,
 				C98FB0C42768D37F00CDDC01 /* Main */,
 				C93AE20C2768A11F00BEF268 /* Assets.xcassets */,
-				C963BD0327AAB2A9005E6765 /* friends.png */,
 				C991E5AC27A032C60096F1C7 /* TVS.mp4 */,
-				C93A0529279FC1C200AB7884 /* error-wait.gif */,
 				C93AE20E2768A11F00BEF268 /* LaunchScreen.storyboard */,
 				C93AE2112768A11F00BEF268 /* Info.plist */,
 			);
@@ -244,43 +220,22 @@
 			path = LocalNotificationService;
 			sourceTree = "<group>";
 		};
-		C97CADBC278EFB5B003F9564 /* Popup */ = {
-			isa = PBXGroup;
-			children = (
-				C97CADBD278EFB7D003F9564 /* PopupVC.swift */,
-				C9BBE16A27984AB9002978B4 /* PopupVM.swift */,
-				9049B1E4279941130008F99A /* PopupVC.xib */,
-			);
-			path = Popup;
-			sourceTree = "<group>";
-		};
 		C98FB0C42768D37F00CDDC01 /* Main */ = {
 			isa = PBXGroup;
 			children = (
+				C93AE2092768A11D00BEF268 /* Main.storyboard */,
 				C93AE2032768A11D00BEF268 /* AppDelegate.swift */,
 				C93AE2052768A11D00BEF268 /* SceneDelegate.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
 		};
-		C98FB0C52768D38500CDDC01 /* Controllers */ = {
+		C98FB0C52768D38500CDDC01 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				C97CADBC278EFB5B003F9564 /* Popup */,
 				C93AE2072768A11D00BEF268 /* NotificationVC.swift */,
-				C9852B9F2769D84B005BCC00 /* SecondVC.swift */,
-				C90CF83A278729C0000B704C /* QuestionVC.swift */,
-				C963BD0627AAB384005E6765 /* FriendsVC.swift */,
 			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		C98FB0C62768D38A00CDDC01 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				C93AE2092768A11D00BEF268 /* Main.storyboard */,
-			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		C9FE826927AB845100CEF822 /* Frameworks */ = {
@@ -415,13 +370,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C963BD0427AAB2A9005E6765 /* friends.png in Resources */,
 				C93AE2102768A11F00BEF268 /* LaunchScreen.storyboard in Resources */,
-				9049B1E5279941130008F99A /* PopupVC.xib in Resources */,
 				C93AE20D2768A11F00BEF268 /* Assets.xcassets in Resources */,
 				C991E5AD27A032C60096F1C7 /* TVS.mp4 in Resources */,
 				C93AE20B2768A11D00BEF268 /* Main.storyboard in Resources */,
-				C93A052A279FC1C200AB7884 /* error-wait.gif in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -429,7 +381,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C963BD0527AAB2A9005E6765 /* friends.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -537,18 +488,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C963BD0727AAB384005E6765 /* FriendsVC.swift in Sources */,
 				C93AE2082768A11D00BEF268 /* NotificationVC.swift in Sources */,
 				C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */,
 				C968DFD4276B32B800DF86EE /* NotificationHandler.swift in Sources */,
 				9049B1E327993D660008F99A /* UNUserNotificationCenterManager.swift in Sources */,
-				C97CADBE278EFB7D003F9564 /* PopupVC.swift in Sources */,
 				9049B1E127993CF90008F99A /* Helpers.swift in Sources */,
-				C9852BA02769D84C005BCC00 /* SecondVC.swift in Sources */,
-				C90CF83B278729C0000B704C /* QuestionVC.swift in Sources */,
 				C93AE2062768A11D00BEF268 /* SceneDelegate.swift in Sources */,
 				C9E6219427C6061D007E1E0F /* Game.swift in Sources */,
-				C9BBE16B27984AB9002978B4 /* PopupVM.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -567,14 +513,10 @@
 				C9BA1BAF27C4EF3500D17586 /* Game.swift in Sources */,
 				C9564C7C27C8DEF6002331BC /* GameVM.swift in Sources */,
 				C9E6219827C6569E007E1E0F /* NotificationVC.swift in Sources */,
-				C9E6219927C656A7007E1E0F /* QuestionVC.swift in Sources */,
-				C9E6219C27C656CB007E1E0F /* PopupVM.swift in Sources */,
 				C9E6219527C6542B007E1E0F /* Helpers.swift in Sources */,
 				C9296C6227CF4EB9007A7704 /* UIViewExtension.swift in Sources */,
 				C9E6219727C65669007E1E0F /* UNUserNotificationCenterManager.swift in Sources */,
-				C9E6219B27C656C9007E1E0F /* PopupVC.swift in Sources */,
 				C9FD345B27C67AE20021C1AA /* NotificationHandler.swift in Sources */,
-				C9E6219A27C656AC007E1E0F /* FriendsVC.swift in Sources */,
 				C9FE827027AB845100CEF822 /* GameVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
