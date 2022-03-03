@@ -10,6 +10,7 @@
 		1951A744A895A436A5695744 /* Pods_LocalNotification1H.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A9D76441ECABC16636ECDF /* Pods_LocalNotification1H.framework */; };
 		9049B1E127993CF90008F99A /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E027993CF90008F99A /* Helpers.swift */; };
 		9049B1E327993D660008F99A /* UNUserNotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */; };
+		90D89CD327D10FCA0088F906 /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E027993CF90008F99A /* Helpers.swift */; };
 		A18D4EB0888E878EB897D98E /* Pods_LocalNotificationService.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28F270384ABF4CF39B61BEC5 /* Pods_LocalNotificationService.framework */; };
 		C9296C6227CF4EB9007A7704 /* UIViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9296C6127CF4EB9007A7704 /* UIViewExtension.swift */; };
 		C93AE2042768A11D00BEF268 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2032768A11D00BEF268 /* AppDelegate.swift */; };
@@ -26,11 +27,7 @@
 		C9BA1BAF27C4EF3500D17586 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA1BAE27C4EF3500D17586 /* Game.swift */; };
 		C9D5315B27CCAEA900360D9D /* animation-congrats.json in Resources */ = {isa = PBXBuildFile; fileRef = C9D5315A27CCAEA900360D9D /* animation-congrats.json */; };
 		C9E6219427C6061D007E1E0F /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BA1BAE27C4EF3500D17586 /* Game.swift */; };
-		C9E6219527C6542B007E1E0F /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E027993CF90008F99A /* Helpers.swift */; };
-		C9E6219727C65669007E1E0F /* UNUserNotificationCenterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9049B1E227993D660008F99A /* UNUserNotificationCenterManager.swift */; };
-		C9E6219827C6569E007E1E0F /* NotificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93AE2072768A11D00BEF268 /* NotificationVC.swift */; };
 		C9E6219D27C656D5007E1E0F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C93AE2092768A11D00BEF268 /* Main.storyboard */; };
-		C9FD345B27C67AE20021C1AA /* NotificationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C968DFD3276B32B800DF86EE /* NotificationHandler.swift */; };
 		C9FE826B27AB845100CEF822 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FE826A27AB845100CEF822 /* UserNotifications.framework */; };
 		C9FE826D27AB845100CEF822 /* UserNotificationsUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C9FE826C27AB845100CEF822 /* UserNotificationsUI.framework */; };
 		C9FE827027AB845100CEF822 /* GameVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FE826F27AB845100CEF822 /* GameVC.swift */; };
@@ -512,11 +509,8 @@
 			files = (
 				C9BA1BAF27C4EF3500D17586 /* Game.swift in Sources */,
 				C9564C7C27C8DEF6002331BC /* GameVM.swift in Sources */,
-				C9E6219827C6569E007E1E0F /* NotificationVC.swift in Sources */,
-				C9E6219527C6542B007E1E0F /* Helpers.swift in Sources */,
 				C9296C6227CF4EB9007A7704 /* UIViewExtension.swift in Sources */,
-				C9E6219727C65669007E1E0F /* UNUserNotificationCenterManager.swift in Sources */,
-				C9FD345B27C67AE20021C1AA /* NotificationHandler.swift in Sources */,
+				90D89CD327D10FCA0088F906 /* Helpers.swift in Sources */,
 				C9FE827027AB845100CEF822 /* GameVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

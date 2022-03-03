@@ -9,12 +9,7 @@ import UIKit
 import UserNotifications
 
 class UNUserNotificationCenterManager: NSObject {
-    
     static let shared = UNUserNotificationCenterManager()
-    
-    private override init() {
-        super.init()
-    }
     
     let notificationCenter = UNUserNotificationCenter.current()
     
@@ -28,23 +23,12 @@ class UNUserNotificationCenterManager: NSObject {
             }
         }
     }
-    
 }
 
 extension UNUserNotificationCenterManager: UNUserNotificationCenterDelegate {
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        
-        let userInfo = notification.request.content.userInfo
-        print("Receive notification in the foreground \(userInfo)")
-
-//        let pref = UserDefaults.init(suiteName: "group.com.local.notification1H.LocalNotification1H")
-//        pref?.set(userInfo, forKey: "NOTIF_DATA")
-
-//        guard let vc = UIApplication.shared.windows.first?.rootViewController as? ViewController else { return }
-//        vc.handleNotifData()
-
-        completionHandler([.alert, .badge, .sound])
+        completionHandler([.banner, .badge, .sound])
     }
 
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
@@ -65,50 +49,31 @@ extension UNUserNotificationCenterManager: UNUserNotificationCenterDelegate {
             case .ignore:
                 print("do nothing")
             }
-        case .question:
-            guard let actionIdentifier = UNNotificationAction.QuestionActions(rawValue: actionIdentifierRawValue) else { return }
-
-            do {
-                let questionData = response.notification.request.content.userInfo["data"] as! Data
-                let question = try JSONDecoder().decode(Question.self, from: questionData)
-
-                switch actionIdentifier {
-                case .attemptAnswer:
-                    showQuestionPopup(question: question, canAttempt: true)
-                case .showAnswer:
-                    showQuestionPopup(question: question, canAttempt: false)
-                case .ignore:
-                    print("do nothing")
-                }
-            } catch {
-                print(error.localizedDescription)
-            }
-        case .mcq:
-            print("MCQ ")
-            
-            do {
-                let gameData = response.notification.request.content.userInfo["data"] as! Data
-                let game = try JSONDecoder().decode(Game.self, from: gameData)
-                print("@@@@ Game: \(game)")
-            } catch {
-                print(error.localizedDescription)
-            }
-            
+        case .game:
+            print("show game")
         }
     }
-
 }
 
-extension UNUserNotificationCenterManager {
-
-    private func showQuestionPopup(question: Question, canAttempt: Bool) {
-//        let vc = PopupVC(nibName: "PopupVC", bundle: nil)
-//        vc.viewModel = PopupVM(question: question, isAttempt: canAttempt)
-//
-//        vc.modalPresentationStyle = .overCurrentContext
-//        vc.modalTransitionStyle = .crossDissolve
-//
-//        UIApplication.shared.windows.first { $0.isKeyWindow }?.rootViewController?.present(vc, animated: true, completion: nil)
+extension UNNotificationCategory {
+    enum CustomKeys: String {
+        case contest
+        case game
     }
+}
 
+extension UNNotificationAction {
+    enum ContestActions: String {
+        case playNow
+        case remindMeLater
+        case ignore
+        
+        var title: String {
+            switch self {
+            case .playNow       : return "Play Now"
+            case .remindMeLater : return "Remind me later"
+            case .ignore        : return "Don't remind me"
+            }
+        }
+    }
 }

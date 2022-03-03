@@ -17,8 +17,8 @@ struct AnswerOptionElements {
 }
 
 class GameVC: UIViewController {
-    @IBOutlet weak var friendsImageView: UIImageView!
-    @IBOutlet weak var quizLabel: UILabel!
+    @IBOutlet weak var questionImageView: UIImageView!
+    @IBOutlet weak var questionTitleLabel: UILabel!
     
     @IBOutlet var optionView1: UIView!
     @IBOutlet var optionView2: UIView!
@@ -35,19 +35,18 @@ class GameVC: UIViewController {
     @IBOutlet var optionImageView3: UIImageView!
     @IBOutlet var optionImageView4: UIImageView!
     
-    var optionElements: [AnswerOptionElements] {
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
+    
+    let viewModel = GameVM()
+    
+    lazy var optionElements: [AnswerOptionElements] = {
         [.init(view: optionView1, label: optionTitleLabel1, imageView: optionImageView1),
          .init(view: optionView2, label: optionTitleLabel2, imageView: optionImageView2),
          .init(view: optionView3, label: optionTitleLabel3, imageView: optionImageView3),
          .init(view: optionView4, label: optionTitleLabel4, imageView: optionImageView4)
         ]
-    }
-    
-    @IBOutlet weak var nextButton: UIButton!
-    
-    @IBOutlet weak var imageHeightConstraint: NSLayoutConstraint!
-    
-    let viewModel = GameVM()
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -165,7 +164,7 @@ extension GameVC: UNNotificationContentExtension {
 
 extension GameVC {
     func updateQuestionContent() {
-        self.quizLabel.text = self.viewModel.question.title
+        self.questionTitleLabel.text = self.viewModel.question.title
         
         self.nextButton.setTitle(self.viewModel.nextButtonText, for: .normal)
         self.nextButton.tintColor = .gray
@@ -197,17 +196,17 @@ extension GameVC {
     }
     
     func updateQuestionImage() {
-        self.friendsImageView.image = nil
+        self.questionImageView.image = nil
         if let imageURL = self.viewModel.question.imageURL {
             getImageFromUrl(url: imageURL) { image in
                 DispatchQueue.main.async {
                     self.imageHeightConstraint.constant = 180
-                    self.friendsImageView.image = image
+                    self.questionImageView.image = image
                 }
             }
         } else {
             self.imageHeightConstraint.constant = 0
-            self.friendsImageView.image = nil
+            self.questionImageView.image = nil
         }
     }
 }

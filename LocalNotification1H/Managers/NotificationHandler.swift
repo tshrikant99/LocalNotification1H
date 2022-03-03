@@ -32,27 +32,11 @@ struct NotificationHandler {
             return category
         }()
         
-        let questionCategory: UNNotificationCategory = {
-            let action1 = UNNotificationAction(identifier: UNNotificationAction.QuestionActions.attemptAnswer.rawValue,
-                                               title: UNNotificationAction.QuestionActions.attemptAnswer.title,
-                                               options: .foreground)
-            
-            let action2 = UNNotificationAction(identifier: UNNotificationAction.QuestionActions.showAnswer.rawValue,
-                                               title: UNNotificationAction.QuestionActions.showAnswer.title,
-                                               options: .foreground)
-            
-            let action3 = UNNotificationAction(identifier: UNNotificationAction.QuestionActions.ignore.rawValue,
-                                               title: UNNotificationAction.QuestionActions.ignore.title,
-                                               options: .destructive)
-            
-            let category = UNNotificationCategory(identifier: UNNotificationCategory.CustomKeys.question.rawValue,
-                                                  actions: [action1, action2, action3],
-                                                  intentIdentifiers: [])
-            return category
-        }()
-        
         DispatchQueue.main.async {
-            UNUserNotificationCenterManager.shared.notificationCenter.setNotificationCategories([contestCategory, questionCategory])
+            UNUserNotificationCenterManager
+                .shared
+                .notificationCenter
+                .setNotificationCategories([contestCategory])
         }
     }
     
@@ -83,34 +67,9 @@ extension NotificationHandler {
         sendNotificationRequest(content: content, notifyAfter: 2)
     }
     
-    static func scheduleQuestionNotification(for question: Question) {
+    static func scheduleNotification(for game: Game) {
         let content = UNMutableNotificationContent()
-        content.categoryIdentifier = UNNotificationCategory.CustomKeys.question.rawValue
-        content.title = "Question"
-        content.body = question.title
-        content.userInfo = ["data": try! JSONEncoder().encode(question)]
-        
-        if let urlString = question.imageURL,
-           let url = URL(string: urlString) {
-            downloadImage(type: .image, from: url) { bundleURL in
-                if  let bundleURL = bundleURL,
-                    let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
-                    content.attachments = [attachment]
-                }
-                
-                DispatchQueue.main.async {
-                    sendNotificationRequest(content: content, notifyAfter: 2)
-                }
-            }
-        } else {
-            sendNotificationRequest(content: content, notifyAfter: 2)
-        }
-    }
-    
-    //TODO: schedule MCQ question [Question]
-    static func scheduleMCQNotification(for game: Game) {
-        let content = UNMutableNotificationContent()
-        content.categoryIdentifier = UNNotificationCategory.CustomKeys.mcq.rawValue
+        content.categoryIdentifier = UNNotificationCategory.CustomKeys.game.rawValue
         content.title = game.title
         content.userInfo = ["data": try! JSONEncoder().encode(game)]
         
@@ -127,32 +86,8 @@ extension NotificationHandler {
         content.title = "Error "
         content.body = "Hey! how did you got this error. LOL :D"
         
-        // Load gif from url
         if let url = URL(string: gifURL) {
             downloadImage(type: .gif, from: url) { bundleUrl in
-                if  let bundleURL = bundleUrl,
-                    let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
-                    content.attachments = [attachment]
-                }
-                
-                DispatchQueue.main.async {
-                    sendNotificationRequest(content: content, notifyAfter: 2)
-                }
-            }
-        }
-    }
-}
-
-extension NotificationHandler {
-    static func showVideoNotification(videoUrlString: String) {
-        let content = UNMutableNotificationContent()
-        content.categoryIdentifier = UNNotificationCategory.CustomKeys.contest.rawValue
-        
-        content.title = "1 Huddle"
-        content.body = "Hey! A contest is ending today & you haven't played some games, Play now! so you don't miss out."
-        
-        if let url = URL(string: videoUrlString) {
-            downloadImage(type: .video, from: url) { bundleUrl in
                 if  let bundleURL = bundleUrl,
                     let attachment = try? UNNotificationAttachment(identifier: UUID().uuidString, url: bundleURL) {
                     content.attachments = [attachment]

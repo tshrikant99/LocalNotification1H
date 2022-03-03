@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19455" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
-    <device id="retina6_1" orientation="portrait" appearance="light"/>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="M4Y-Lb-cyx">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19454"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -275,7 +274,6 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="600"/>
                     <connections>
-                        <outlet property="friendsImageView" destination="4Cp-J5-uTb" id="7bB-wf-N1j"/>
                         <outlet property="imageHeightConstraint" destination="sWc-F8-S6g" id="zNi-7i-lyt"/>
                         <outlet property="nextButton" destination="5uW-Ia-lc3" id="VlC-rg-Gia"/>
                         <outlet property="optionImageView1" destination="4Yi-Ab-1Ad" id="xCR-O4-oSW"/>
@@ -290,7 +288,8 @@
                         <outlet property="optionView2" destination="0zN-AL-5s4" id="0aP-oJ-aRc"/>
                         <outlet property="optionView3" destination="Sym-qv-3gc" id="JGJ-RU-BAM"/>
                         <outlet property="optionView4" destination="E1i-C9-4gx" id="7jO-t6-ugO"/>
-                        <outlet property="quizLabel" destination="FCB-3E-r5Y" id="CG4-Kg-7ip"/>
+                        <outlet property="questionImageView" destination="4Cp-J5-uTb" id="7bB-wf-N1j"/>
+                        <outlet property="questionTitleLabel" destination="FCB-3E-r5Y" id="CG4-Kg-7ip"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vXp-U4-Rya" userLabel="First Responder" sceneMemberID="firstResponder"/>
